@@ -1,3 +1,4 @@
+#include "raymath.h"
 #include "bullets.h"
 
 int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector2 start_dir)
@@ -21,6 +22,16 @@ void update_bullets(bullet_t *bullarr,uint32_t nbullets)
 {
     for(uint32_t i=0;i<nbullets;i++)
     {
+        bullarr[i].bullet_pos = Vector2Add(bullarr[i].bullet_pos,bullarr[i].bullet_ds);
+    }
+}
 
+
+void draw_bullets(bullet_t *bullarr,uint32_t nbullets)
+{
+    float bullet_rad = 2.0f;
+    for(uint32_t i=0;i<nbullets;i++)
+    {
+        DrawCircleV(bullarr[i].bullet_pos,bullet_rad,GREEN);
     }
 }

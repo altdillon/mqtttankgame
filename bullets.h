@@ -2,7 +2,7 @@
 #define BULLETS_H
 #include <stdint.h>
 #include "raylib.h"
-#define MAX_BULLETS 10 // number of rounds that can be on the screen
+#define MAX_BULLETS 100 // number of rounds that can be on the screen
 
 /*
     Struct for storing the state of a bullet
@@ -32,5 +32,10 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
 */
 
 void update_bullets(bullet_t *bullarr,uint32_t nbullets);
+
+/*
+    Draw bullets
+*/
+void draw_bullets(bullet_t *bullarr,uint32_t nbullets);
 
 #endif

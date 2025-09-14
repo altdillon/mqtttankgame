@@ -14,6 +14,9 @@ typedef struct
 
 int main()
 {
+
+
+    bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
     uint32_t bullet_count = 0; 
     bullet_t bullets[MAX_BULLETS];
@@ -89,10 +92,21 @@ int main()
         }
         if(IsKeyDown(KEY_SPACE))
         {
-            printf("%s\n","launch a bullet!");
-            Vector2 init_pos = {dx,dy};
-            launch_bullet(bullet_count,bullets,playerpos,init_pos);
-
+            if(key_state == false)
+            {
+                printf("%s %d\n","launch a bullet!",bullet_count);
+                float bv = 10.0f;
+                Vector2 init_pos = {bv*dx,bv*dy};
+                if(launch_bullet(bullet_count,bullets,playerpos,init_pos) == 0)
+                {
+                    bullet_count ++;
+                }
+                key_state = true;
+            }
+        }
+        else
+        {
+            key_state = false;
         }
         // grab gamepad input
 
@@ -103,13 +117,14 @@ int main()
         //float player_angle_deg = playerAngle * (180/PI);
         DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
         // draw all the bullets
-
+        draw_bullets(bullets,bullet_count);
         //DrawTexture(tank_sp,playerpos.x,playerpos.y, WHITE);
         //DrawCircleV(playerpos,20,RED);
 
         EndDrawing();
 
         // cycle through the bullets and update them
+        update_bullets(bullets,bullet_count);
     }
 
     return 0;
