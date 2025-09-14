@@ -92,11 +92,11 @@ int main()
         }
         if(IsKeyDown(KEY_SPACE))
         {
+            float bv = 10.0f;
+            Vector2 init_pos = {bv*dx,bv*dy};
             if(key_state == false)
             {
-                printf("%s %d\n","launch a bullet!",bullet_count);
-                float bv = 10.0f;
-                Vector2 init_pos = {bv*dx,bv*dy};
+                printf("%s %d\n","launch a bullet!",bullet_count); 
                 if(launch_bullet(bullet_count,bullets,playerpos,init_pos) == 0)
                 {
                     bullet_count ++;
