@@ -63,8 +63,8 @@ int main()
     while(!WindowShouldClose())
     {
         deltaTime = GetFrameTime();
-        BeginDrawing();
-        ClearBackground(BLACK);
+        // BeginDrawing();
+        // ClearBackground(BLACK);
 
         // grab keyborad input
         if(IsKeyDown(KEY_W)) 
@@ -125,6 +125,9 @@ int main()
         }
         // grab gamepad input
 
+
+        BeginDrawing();
+        ClearBackground(BLACK);
 
         //destRec = { playerpos.x, playerpos.y, frameWidth*2.0f, frameHeight*2.0f };
         destRec.x = playerpos.x;
