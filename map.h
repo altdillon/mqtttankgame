@@ -25,6 +25,12 @@ typedef struct
 /*
     Function for the random walk
 */
-int random_walk(int width,int height,double walk_percent,int seed);
+int random_walk(map_t *map,int width,int height,double walk_percent,int seed);
+
+/*
+    Function to draw the map
+*/
+
+int draw_map(map_t *gmap,int startX,int startY,int width,int height);
 
 #endif

@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "bullets.h"
+#include "map.h"
 
 typedef struct 
 {
@@ -15,7 +16,9 @@ typedef struct
 
 int main()
 {
-
+    // define the map that we well be playing on
+    map_t gamemap;
+    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.4,-1);
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
