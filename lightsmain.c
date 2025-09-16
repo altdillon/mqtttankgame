@@ -129,6 +129,8 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
+        draw_map(&gamemap,0,0,MAP_WIDTH,MAP_HEIGHT);
+
         //destRec = { playerpos.x, playerpos.y, frameWidth*2.0f, frameHeight*2.0f };
         destRec.x = playerpos.x;
         destRec.y = playerpos.y;

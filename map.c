@@ -86,7 +86,8 @@ int draw_map(map_t *gmap,int startX,int startY,int width,int height)
         {
             // get the RGB_t
             RGB_t mcolor = gmap->map[x][y];
-            uint8_t alpha = (rand() % 256) + 1; // random alpha/transpericy value because it's cool
+            //uint8_t alpha = (rand() % 256) + 1; // random alpha/transpericy value because it's cool
+            uint8_t alpha = 128; 
             Color rcolor = (Color) {mcolor.R,mcolor.G,mcolor.B,alpha};
             // figure out where we're going to draw it
             cordX = x * sideX;
