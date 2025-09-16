@@ -25,8 +25,8 @@ int main()
     uint32_t bullet_count = 0; 
     bullet_t bullets[MAX_BULLETS];
 
-    const int windowX = 800;
-    const int windowY = 600;
+    const int windowX = 1600;
+    const int windowY = 900;
 
     Vector2 playerpos = {(float)windowX/2,(float)windowY/2};
     float playerAngle = PI/2; 
@@ -35,6 +35,13 @@ int main()
     float dy = 0.0f;
     float dx = 0.0f;
     float ds = 2.0f;
+
+    //init the game camera to view the player
+    Camera2D camera = {0};
+    camera.target = playerpos;
+    camera.offset = (Vector2){ windowX/2.0f, windowY/2.0f };
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
 
     InitWindow(windowX, windowY, "raylib [core] example - basic window"); 
     Texture2D tank_sp = LoadTexture("tanksprite.png");
