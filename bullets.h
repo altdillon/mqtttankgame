@@ -14,7 +14,6 @@ typedef struct
     Vector2 bullet_pos; // current position of the bullet
     Vector2 bullet_ds; // velocity of the bullet
     uint32_t id; // current ID of the bullet
-    float bulletV; // velocity of the bullet
 } bullet_t;
 
 /*
@@ -23,8 +22,9 @@ typedef struct
     bulletarr: array of bullets
     start_pos: starting position of the bullet
     start_dir: starting direction of the bullet, bullet will fallow this vector
+    speed: speed of bullet
 */
-int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector2 start_dir);
+int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector2 start_dir,float speed);
 
 /*
     Update the state of all the bullets

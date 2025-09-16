@@ -1,7 +1,7 @@
 #include "raymath.h"
 #include "bullets.h"
 
-int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector2 start_dir)
+int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector2 start_dir,float speed)
 {
     uint32_t next_id = nbullets + 1;
     if(next_id > MAX_BULLETS)
@@ -13,8 +13,8 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
     new_bullet.bullet_ds = start_dir;
     new_bullet.id = next_id;
     new_bullet.org_pos = start_pos;
+    new_bullet.bullet_ds = Vector2Scale(start_dir,speed); // scale the speed of the bullet
     bulletarr[next_id-1] = new_bullet;
-
     return 0;
 }
 

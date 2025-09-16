@@ -95,11 +95,12 @@ int main()
         {
             if(key_state == false)
             {
+                float init_speed = 10.0f;
                 float bv = 10.0f;
                 Vector2 pos = {dx,dy};
                 Vector2 init_dir = Vector2Normalize(pos);
                 printf("%s %d\n","launch a bullet!",bullet_count); 
-                if(launch_bullet(bullet_count,bullets,playerpos,init_dir) == 0)
+                if(launch_bullet(bullet_count,bullets,playerpos,init_dir,init_speed) == 0)
                 {
                     bullet_count ++;
                 }
