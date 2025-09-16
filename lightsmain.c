@@ -48,9 +48,11 @@ int main()
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
     Vector2 origin = { (float)frameWidth, (float)frameHeight };
 
+    float deltaTime;
     SetTargetFPS(60);
     while(!WindowShouldClose())
     {
+        deltaTime = GetFrameTime();
         BeginDrawing();
         ClearBackground(BLACK);
 
