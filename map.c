@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include "raylib.h"
 #include "map.h"
 
 
@@ -70,4 +71,27 @@ int random_walk(map_t *map,int width,int height,double walk_percent,int seed)
     }
 
     return 0;
+}
+
+
+int draw_map(map_t *gmap,int startX,int startY,int width,int height)
+{
+    const uint32_t sideX = 4;
+    const uint32_t sideY = 4;
+    uint32_t cordX = 0;
+    uint32_t cordY = 0;
+    for(uint32_t x=0;x<width;x++)
+    {
+        for(uint32_t y=0;y<height;y++)
+        {
+            // get the RGB_t
+            RGB_t mcolor = gmap->map[x][y];
+            uint8_t alpha = (rand() % 256) + 1; // random alpha/transpericy value because it's cool
+            Color rcolor = (Color) {mcolor.R,mcolor.G,mcolor.B,alpha};
+            // figure out where we're going to draw it
+            cordX = x * sideX;
+            cordY = y * sideY;
+            DrawRectangle(cordX,cordY,sideX,sideY,rcolor);
+        }
+    }
 }
