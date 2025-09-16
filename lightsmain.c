@@ -17,8 +17,9 @@ typedef struct
 int main()
 {
     // define the map that we well be playing on
+    int gamepad = 0;
     map_t gamemap;
-    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.4,-1);
+    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.8,-1);
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
@@ -67,7 +68,7 @@ int main()
         // ClearBackground(BLACK);
 
         // grab keyborad input
-        if(IsKeyDown(KEY_W)) 
+        if(IsKeyDown(KEY_W) || IsGamepadButtonDown(gamepad, GAMEPAD_BUTTON_LEFT_FACE_UP)) 
         {
             playerpos.x += dx;
             playerpos.y += dy;
@@ -129,7 +130,7 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
-        draw_map(&gamemap,0,0,MAP_WIDTH,MAP_HEIGHT);
+        draw_map(&gamemap,100,100,MAP_WIDTH,MAP_HEIGHT);
 
         //destRec = { playerpos.x, playerpos.y, frameWidth*2.0f, frameHeight*2.0f };
         destRec.x = playerpos.x;

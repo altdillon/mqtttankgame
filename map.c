@@ -90,8 +90,8 @@ int draw_map(map_t *gmap,int startX,int startY,int width,int height)
             uint8_t alpha = 128; 
             Color rcolor = (Color) {mcolor.R,mcolor.G,mcolor.B,alpha};
             // figure out where we're going to draw it
-            cordX = x * sideX;
-            cordY = y * sideY;
+            cordX = x * sideX + startX;
+            cordY = y * sideY + startY;
             DrawRectangle(cordX,cordY,sideX,sideY,rcolor);
         }
     }

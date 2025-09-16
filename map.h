@@ -1,8 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 #include <stdint.h>
-#define MAP_HEIGHT 30
-#define MAP_WIDTH 30
+#define MAP_HEIGHT 200
+#define MAP_WIDTH 200
 
 /*
     Structure for RGB values
