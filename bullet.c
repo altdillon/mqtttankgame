@@ -13,7 +13,7 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
     new_bullet.bullet_ds = start_dir;
     new_bullet.id = next_id;
     new_bullet.org_pos = start_pos;
-    bulletarr[next_id] = new_bullet;
+    bulletarr[next_id-1] = new_bullet;
 
     return 0;
 }

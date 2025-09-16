@@ -14,6 +14,7 @@ typedef struct
     Vector2 bullet_pos; // current position of the bullet
     Vector2 bullet_ds; // velocity of the bullet
     uint32_t id; // current ID of the bullet
+    float bulletV; // velocity of the bullet
 } bullet_t;
 
 /*
