@@ -76,8 +76,8 @@ int random_walk(map_t *map,int width,int height,double walk_percent,int seed)
 
 int draw_map(map_t *gmap,int startX,int startY,int width,int height)
 {
-    const uint32_t sideX = 4;
-    const uint32_t sideY = 4;
+    const uint32_t sideX = 8;
+    const uint32_t sideY = 8;
     uint32_t cordX = 0;
     uint32_t cordY = 0;
     for(uint32_t x=0;x<width;x++)
