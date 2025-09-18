@@ -1,0 +1,3 @@
+[submodule "external/toml-c"]
+	path = external/toml-c
+	url = https://github.com/arp242/toml-c.git
