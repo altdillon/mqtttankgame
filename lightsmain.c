@@ -23,7 +23,7 @@ int main()
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;
-    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.8,-1);
+    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.74,-1);
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
