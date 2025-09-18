@@ -11,7 +11,7 @@ typedef struct
 {
     Vector2 spritePos;
     float angle; // angle in radians
-} playerPos_t;
+} player_t;
 
 
 int main()
@@ -29,6 +29,9 @@ int main()
     const int windowX = 1600;
     const int windowY = 900;
 
+    // basicly instance variables
+    player_t player;
+
     Vector2 playerpos = {(float)windowX/2,(float)windowY/2};
     float playerAngle = PI/2; 
     float da = 10.0f;
@@ -36,6 +39,10 @@ int main()
     float dy = 0.0f;
     float dx = 0.0f;
     float ds = 2.0f;
+
+    // init some values
+    player.spritePos = playerpos;
+    player.angle = playerAngle;
 
     //init the game camera to view the player
     Camera2D camera = {0};
@@ -72,35 +79,44 @@ int main()
         {
             playerpos.x += dx;
             playerpos.y += dy;
+            player.spritePos.x += dx;
+            player.spritePos.y += dy;
         }
         if(IsKeyDown(KEY_S)) 
         {
             playerpos.x -= dx;
             playerpos.y -= dy;
+            player.spritePos.x -= dx;
+            player.spritePos.y -= dy;
         }
         if(IsKeyDown(KEY_A)) 
         {
 
-            printf("angle: %f\n",(playerAngle));
+            //printf("angle: %f\n",(playerAngle));
+            player.angle = player.angle - da; 
             playerAngle = playerAngle - da;
             // if(playerAngle >= 2*PI)
             // {
             //     playerAngle -= 2*PI;
             // }
-            float p_angle_rad = playerAngle * (PI/180) - PI/2;
+            //float p_angle_rad = playerAngle * (PI/180) - PI/2;
+            float p_angle_rad = player.angle * (PI/180) - PI/2;
+            //float p_angle_rad = player.angle * (PI/180) - PI/2;
             dx = cosf(p_angle_rad)*ds;
             dy = sinf(p_angle_rad)*ds;
         }
         if(IsKeyDown(KEY_D)) 
         {
-            printf("angle: %f\n",(playerAngle));
-            playerAngle = playerAngle + da;
+            //printf("angle: %f\n",(playerAngle));
+            player.angle = player.angle + da; 
+            playerAngle = playerAngle + da; 
             // if(playerAngle < 0.0f)
             // {
             //     playerAngle += 2*PI;
             // } 
 
-            float p_angle_rad = playerAngle * (PI/180) - PI/2;
+            //float p_angle_rad = playerAngle * (PI/180) - PI/2;
+            float p_angle_rad = player.angle * (PI/180) - PI/2;
             dx = cosf(p_angle_rad)*ds;
             dy = sinf(p_angle_rad)*ds;
         }
@@ -133,8 +149,10 @@ int main()
         draw_map(&gamemap,100,100,MAP_WIDTH,MAP_HEIGHT);
 
         //destRec = { playerpos.x, playerpos.y, frameWidth*2.0f, frameHeight*2.0f };
-        destRec.x = playerpos.x;
-        destRec.y = playerpos.y;
+        //destRec.x = playerpos.x;
+        //destRec.y = playerpos.y;
+        destRec.x = player.spritePos.x;
+        destRec.y = player.spritePos.y; 
         //float player_angle_deg = playerAngle * (180/PI);
         DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
         // draw all the bullets
