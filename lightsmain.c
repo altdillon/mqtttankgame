@@ -11,6 +11,8 @@ typedef struct
 {
     Vector2 spritePos;
     float angle; // angle in radians
+    uint16_t bullets; // how many bullets the tank has
+    // TODO: add a type for ammo type
 } player_t;
 
 
@@ -43,6 +45,7 @@ int main()
     // init some values
     player.spritePos = playerpos;
     player.angle = playerAngle;
+    player.bullets = 99; // starting number of bullets
 
     //init the game camera to view the player
     Camera2D camera = {0};
@@ -132,6 +135,7 @@ int main()
                 if(launch_bullet(bullet_count,bullets,playerpos,init_dir,init_speed) == 0)
                 {
                     bullet_count ++;
+                    player.bullets --;
                 }
                 key_state = true;
             }
