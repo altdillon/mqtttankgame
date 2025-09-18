@@ -15,6 +15,8 @@ typedef struct
     // TODO: add a type for ammo type
 } player_t;
 
+// update player
+void update_player(player_t *player,map_t *worldmap);
 
 int main()
 {
@@ -80,15 +82,15 @@ int main()
         // grab keyborad input
         if(IsKeyDown(KEY_W) || IsGamepadButtonDown(gamepad, GAMEPAD_BUTTON_LEFT_FACE_UP)) 
         {
-            playerpos.x += dx;
-            playerpos.y += dy;
+            //playerpos.x += dx;
+            //playerpos.y += dy;
             player.spritePos.x += dx;
             player.spritePos.y += dy;
         }
         if(IsKeyDown(KEY_S)) 
         {
-            playerpos.x -= dx;
-            playerpos.y -= dy;
+            //playerpos.x -= dx;
+            //playerpos.y -= dy;
             player.spritePos.x -= dx;
             player.spritePos.y -= dy;
         }
@@ -132,7 +134,7 @@ int main()
                 Vector2 pos = {dx,dy};
                 Vector2 init_dir = Vector2Normalize(pos);
                 printf("%s %d\n","launch a bullet!",bullet_count); 
-                if(launch_bullet(bullet_count,bullets,playerpos,init_dir,init_speed) == 0)
+                if(launch_bullet(bullet_count,bullets,player.spritePos,init_dir,init_speed) == 0)
                 {
                     bullet_count ++;
                     player.bullets --;
@@ -144,26 +146,26 @@ int main()
         {
             key_state = false;
         }
-        // grab gamepad input
+        
+        // update the camera
+        camera.target = (Vector2){player.spritePos.x,player.spritePos.y};
 
 
         BeginDrawing();
-        ClearBackground(BLACK);
+            BeginMode2D(camera);
+                ClearBackground(BLACK);
 
-        draw_map(&gamemap,100,100,MAP_WIDTH,MAP_HEIGHT);
+                draw_map(&gamemap,100,100,MAP_WIDTH,MAP_HEIGHT);
 
-        //destRec = { playerpos.x, playerpos.y, frameWidth*2.0f, frameHeight*2.0f };
-        //destRec.x = playerpos.x;
-        //destRec.y = playerpos.y;
-        destRec.x = player.spritePos.x;
-        destRec.y = player.spritePos.y; 
-        //float player_angle_deg = playerAngle * (180/PI);
-        DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
-        // draw all the bullets
-        draw_bullets(bullets,bullet_count);
-        //DrawTexture(tank_sp,playerpos.x,playerpos.y, WHITE);
-        //DrawCircleV(playerpos,20,RED);
-
+                destRec.x = player.spritePos.x;
+                destRec.y = player.spritePos.y; 
+                //float player_angle_deg = playerAngle * (180/PI);
+                DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
+                // draw all the bullets
+                draw_bullets(bullets,bullet_count);
+                //DrawTexture(tank_sp,playerpos.x,playerpos.y, WHITE);
+                //DrawCircleV(playerpos,20,RED);
+            EndMode2D();
         EndDrawing();
 
         // cycle through the bullets and update them
@@ -171,4 +173,10 @@ int main()
     }
 
     return 0;
+}
+
+
+void update_player(player_t *player,map_t *worldmap)
+{
+
 }
