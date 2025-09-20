@@ -97,8 +97,14 @@ int main(int argc,char **argv)
         // grab keyborad input
         if(IsKeyDown(KEY_W) || IsGamepadButtonDown(gamepad, GAMEPAD_BUTTON_LEFT_FACE_UP)) 
         {
-            player.spritePos.x += dx;
-            player.spritePos.y += dy;
+            printf("%f\n",player.angle);
+            // do a check to figure out if we're less than half than half the window width from the side of the wall
+            if(player.spritePos.x > 400)
+            {
+
+                player.spritePos.x += dx;
+                player.spritePos.y += dy;
+            }
         }
         if(IsKeyDown(KEY_S)) 
         {
