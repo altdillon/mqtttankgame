@@ -6,12 +6,12 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "*.c",
                 "-g",
                 "-lraylib",
-                "-lm",
+                "-lm"
+                "*.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "tankgame"
             ],
             "options": {
                 "cwd": "${fileDirname}"
