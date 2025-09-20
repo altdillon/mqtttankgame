@@ -155,7 +155,7 @@ int main()
             BeginMode2D(camera);
                 ClearBackground(BLACK);
 
-                draw_map(&gamemap,100,100,MAP_WIDTH,MAP_HEIGHT);
+                draw_map(&gamemap,0,0,MAP_WIDTH,MAP_HEIGHT);
 
                 destRec.x = player.spritePos.x;
                 destRec.y = player.spritePos.y; 

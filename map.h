@@ -1,8 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 #include <stdint.h>
-#define MAP_HEIGHT 200
-#define MAP_WIDTH 200
+#define MAP_HEIGHT 300
+#define MAP_WIDTH 300
 
 /*
     Structure for RGB values
@@ -19,7 +19,7 @@ typedef struct
 */
 typedef struct 
 {
-    RGB_t map[MAP_HEIGHT][MAP_WIDTH];
+    RGB_t map[MAP_WIDTH][MAP_HEIGHT];
 } map_t;
 
 /*
