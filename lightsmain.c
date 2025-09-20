@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include <stdbool.h>
 #include <MQTTClient.h> // paho mqtt
@@ -19,7 +20,7 @@ typedef struct
 // update player
 void update_player(player_t *player,map_t *worldmap);
 
-int main()
+int main(int argc,char **argv)
 {
     // define the map that we well be playing on
     int gamepad = 0;
@@ -33,6 +34,17 @@ int main()
 
     const int windowX = 1600;
     const int windowY = 900;
+
+
+    if(argc > 1 && strcmp(argv[1],"-fullscreen") == 0)
+    {
+        SetConfigFlags(FLAG_FULLSCREEN_MODE);
+        InitWindow(GetScreenWidth(), GetScreenHeight(), "My Fullscreen Game");
+    }
+    else
+    {
+        InitWindow(windowX, windowY, "MQTT TANK GAME"); 
+    }
 
     // basicly instance variables
     player_t player;
@@ -57,7 +69,6 @@ int main()
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    InitWindow(windowX, windowY, "MQTT TANK GAME"); 
     Texture2D tank_sp = LoadTexture("tanksprite.png");
 
     int frameWidth = tank_sp.width;
