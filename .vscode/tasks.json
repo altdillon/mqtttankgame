@@ -11,6 +11,8 @@
                 "-lpaho-mqtt3c",
                 "-lm"
                 "*.c",
+                "external/toml-c/toml.c",
+                "-Iexternal/toml-c",
                 "-o",
                 "tankgame"
             ],

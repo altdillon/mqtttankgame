@@ -8,6 +8,7 @@
 #include "raymath.h"
 #include "bullets.h"
 #include "map.h"
+#include "toml.h"
 
 typedef struct 
 {
@@ -96,15 +97,11 @@ int main(int argc,char **argv)
         // grab keyborad input
         if(IsKeyDown(KEY_W) || IsGamepadButtonDown(gamepad, GAMEPAD_BUTTON_LEFT_FACE_UP)) 
         {
-            //playerpos.x += dx;
-            //playerpos.y += dy;
             player.spritePos.x += dx;
             player.spritePos.y += dy;
         }
         if(IsKeyDown(KEY_S)) 
         {
-            //playerpos.x -= dx;
-            //playerpos.y -= dy;
             player.spritePos.x -= dx;
             player.spritePos.y -= dy;
         }
@@ -163,7 +160,6 @@ int main(int argc,char **argv)
         
         // update the camera
         camera.target = (Vector2){player.spritePos.x,player.spritePos.y};
-
 
         BeginDrawing();
             BeginMode2D(camera);
