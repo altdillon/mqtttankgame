@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <MQTTClient.h> // paho mqtt
 #include <stdint.h>
 #include "raylib.h"
 #include "raymath.h"
@@ -56,7 +57,7 @@ int main()
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    InitWindow(windowX, windowY, "raylib [core] example - basic window"); 
+    InitWindow(windowX, windowY, "MQTT TANK GAME"); 
     Texture2D tank_sp = LoadTexture("tanksprite.png");
 
     int frameWidth = tank_sp.width;

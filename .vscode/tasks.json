@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-lraylib",
+                "-lpaho-mqtt3c",
                 "-lm"
                 "*.c",
                 "-o",
