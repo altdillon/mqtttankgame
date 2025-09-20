@@ -32,14 +32,16 @@ int main(int argc,char **argv)
     uint32_t bullet_count = 0; 
     bullet_t bullets[MAX_BULLETS];
 
-    const int windowX = 1600;
-    const int windowY = 900;
+    int windowX = 1600;
+    int windowY = 900;
 
 
     if(argc > 1 && strcmp(argv[1],"-fullscreen") == 0)
     {
         SetConfigFlags(FLAG_FULLSCREEN_MODE);
         InitWindow(GetScreenWidth(), GetScreenHeight(), "My Fullscreen Game");
+        windowX = GetScreenWidth();
+        windowY = GetScreenHeight();
     }
     else
     {
