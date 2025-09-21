@@ -9,6 +9,7 @@
 #include "bullets.h"
 #include "map.h"
 #include "toml.h"
+#include "mqtthosts.h"
 
 typedef struct 
 {
@@ -27,6 +28,8 @@ int main(int argc,char **argv)
     int gamepad = 0;
     map_t gamemap;
     random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.74,-1);
+    // define an array to store all of our mqtt hosts
+    mqtthost_t hosts[MAXHOSTS];
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
@@ -74,6 +77,8 @@ int main(int argc,char **argv)
     {
         strcpy(cfgfileBuffer,argv[cfgfile_index+1]);
         printf("toml file: %s\n",cfgfileBuffer);
+        // parse the toml file
+        load_toml_config(cfgfileBuffer,hosts);
     }
 
     // after the argus are parsed run the options
