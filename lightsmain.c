@@ -37,7 +37,47 @@ int main(int argc,char **argv)
     int windowY = 900;
 
 
-    if(argc > 1 && strcmp(argv[1],"-fullscreen") == 0)
+    // if(argc > 1 && strcmp(argv[1],"-fullscreen") == 0)
+    // {
+    //     SetConfigFlags(FLAG_FULLSCREEN_MODE);
+    //     InitWindow(GetScreenWidth(), GetScreenHeight(), "My Fullscreen Game");
+    //     windowX = GetScreenWidth();
+    //     windowY = GetScreenHeight();
+    // }
+    // else
+    // {
+    //     InitWindow(windowX, windowY, "MQTT TANK GAME"); 
+    // }
+
+    // better way to handle command line arguments
+    // options
+    bool fullscreen = false;
+    int cfgfile_index = 0;
+    char cfgfileBuffer[80];
+
+    if(argc > 1)
+    {
+        for(int i=0;i<argc;i++)
+        {
+            if(strcmp(argv[i],"-fullscreen") == 0)
+            {
+                fullscreen = true;
+            }
+            else if(strcmp(argv[i],"-configfile") == 0)
+            {
+                cfgfile_index = i;
+            }
+        }
+    }
+
+    if(cfgfile_index > 0 && (cfgfile_index+1) < argc && strlen(argv[cfgfile_index+1]) > 0)
+    {
+        strcpy(cfgfileBuffer,argv[cfgfile_index+1]);
+        printf("toml file: %s\n",cfgfileBuffer);
+    }
+
+    // after the argus are parsed run the options
+    if(fullscreen)
     {
         SetConfigFlags(FLAG_FULLSCREEN_MODE);
         InitWindow(GetScreenWidth(), GetScreenHeight(), "My Fullscreen Game");
