@@ -1,3 +1,6 @@
 [submodule "external/toml-c"]
 	path = external/toml-c
 	url = https://github.com/arp242/toml-c.git
+[submodule "external/raylib"]
+	path = external/raylib
+	url = https://github.com/raysan5/raylib.git
