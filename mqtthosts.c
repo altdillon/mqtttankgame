@@ -16,6 +16,9 @@ static void error(const char* msg, const char* msg1)
 
 int load_toml_config(char *pathname,mqtthost_t *hosts)
 {
+    uint64_t host_port;
+    char host_ip[80];
+
     FILE *fp;
     char errorbuf[200];
     // try to read and parse the toml file, return a -1 if it fails
@@ -46,7 +49,16 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
         {
             int keylen;
             const char *key = toml_table_key(mqttbroker,i,&keylen);
-            printf("key: #%d: %s\n",i,key);
+            //toml_value_t value = toml_table_string(mqttbroker,key);
+            //printf("key: #%d: %s, data: %s\n",i,key,value.u.s);
+            if(strcmp(key,"hostip") == 0)
+            {
+                strcpy(host_ip,value.u.s);
+            }
+            else if(strcmp(key,"hostport") == 0)
+            {
+
+            }
         }
     }
 
