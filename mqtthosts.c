@@ -37,5 +37,19 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
         error("cannot parse ",errorbuf);
     }
 
+    // pull out the name of the server
+    toml_table_t *mqttbroker = toml_table_table(mqtthostdata,"mqtthost");
+    if(mqttbroker)
+    {
+        uint32_t len = toml_table_len(mqttbroker);
+        for(uint32_t i=0;i<len;i++)
+        {
+            int keylen;
+            const char *key = toml_table_key(mqttbroker,i,&keylen);
+            printf("key: #%d: %s\n",i,key);
+        }
+    }
+
+    toml_free(mqttbroker);
     return 0;
 }
