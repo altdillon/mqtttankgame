@@ -14,7 +14,7 @@ typedef struct
     unsigned char *oncmd; // on command
     unsigned char *offcmd; // off command
     unsigned char *broker_ip; // ip address of the broker as a string
-    unsgiend char *host_port; // port of the broker as a string
+    unsigned char *host_port; // port of the broker as a string
 }mqtthost_t;
 
 /*
