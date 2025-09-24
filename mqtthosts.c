@@ -53,11 +53,13 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
             //printf("key: #%d: %s, data: %s\n",i,key,value.u.s);
             if(strcmp(key,"hostip") == 0)
             {
+                toml_value_t value = toml_table_string(mqttbroker,key);
                 strcpy(host_ip,value.u.s);
             }
             else if(strcmp(key,"hostport") == 0)
             {
-
+                toml_value_t value = toml_table_int(mqttbroker,key);
+                host_port = value.u.i;
             }
         }
     }
