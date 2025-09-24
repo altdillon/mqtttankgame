@@ -64,6 +64,18 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
         }
     }
 
+    // iterate through all of the devices and add them to the mqtthost_t array
+    // see line ~30 of https://github.com/arp242/toml-c/blob/main/example/table.c
+    toml_table_t *devices = toml_table_table(mqttbroker,"devices");
+    if(devices)
+    {
+
+    }
+    else
+    {
+        return -1; // just fail if we don't have anything
+    }
+
     toml_free(mqttbroker);
     return 0;
 }
