@@ -78,7 +78,10 @@ int main(int argc,char **argv)
         strcpy(cfgfileBuffer,argv[cfgfile_index+1]);
         printf("toml file: %s\n",cfgfileBuffer);
         // parse the toml file
-        load_toml_config(cfgfileBuffer,hosts);
+        if(load_toml_config(cfgfileBuffer,hosts) < 0)
+        {
+            printf("%s\n","failed to load toml config file");
+        }
     }
 
     // after the argus are parsed run the options
