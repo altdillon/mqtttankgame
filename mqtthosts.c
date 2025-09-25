@@ -93,7 +93,7 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
                     strcpy(hosts[host_count].broker_ip,host_ip);
                     hosts[host_count].host_port = host_port;
                     // figure out which elements we're writting to 
-                    
+                    toml_table_t *memberdata = toml_table_string() 
                     if(strcmp(device_member_key,"topic") == 0)
                     {
                     
