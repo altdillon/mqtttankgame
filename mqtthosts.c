@@ -93,22 +93,26 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
                     strcpy(hosts[host_count].broker_ip,host_ip);
                     hosts[host_count].host_port = host_port;
                     // figure out which elements we're writting to 
-                    toml_table_t *memberdata = toml_table_string() 
+                    toml_value_t memberdata;
                     if(strcmp(device_member_key,"topic") == 0)
                     {
-                    
+                        memberdata = toml_table_string(adevice,"topic");
+                        strcpy(hosts[host_count].topic,memberdata.u.s);
                     }
                     else if(strcmp(device_member_key,"oncmd") == 0)
                     {
-
+                        memberdata = toml_table_string(adevice,"oncmd");
+                        strcpy(hosts[host_count].oncmd,memberdata.u.s);
                     }
                     else if(strcmp(device_member_key,"offcmd") == 0)
                     {
-
+                        memberdata = toml_table_string(adevice,"offcmd");
+                        strcpy(hosts[host_count].offcmd,memberdata.u.s);
                     }
                     else if(strcmp(device_member_key,"type") == 0)
                     {
-
+                        memberdata = toml_table_string(adevice,"type");
+                        strcpy(hosts[host_count].label,memberdata.u.s);
                     }
                 }
             } 
@@ -122,5 +126,5 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
     }
 
     toml_free(mqttbroker);
-    return 0;
+    return host_count;
 }
