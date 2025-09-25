@@ -27,7 +27,7 @@ int main(int argc,char **argv)
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;
-    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.74,-1);
+    random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.7,-1);
     // define an array to store all of our mqtt hosts
     mqtthost_t hosts[MAXHOSTS];
 

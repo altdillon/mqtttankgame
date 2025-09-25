@@ -1,6 +1,8 @@
 #ifndef CONFIGFILE_H
 #define CONFIGFILE_H
 #define MAXHOSTS 20
+#define MAXSTRLEN 80
+#include <stdint.h>
 
 /*
     struct for storing enteries of entires
@@ -9,12 +11,12 @@
 
 typedef struct
 {
-    unsigned char *label; // label from the file
-    unsigned char *topic; // mqttopic
-    unsigned char *oncmd; // on command
-    unsigned char *offcmd; // off command
-    unsigned char *broker_ip; // ip address of the broker as a string
-    unsigned char *host_port; // port of the broker as a string
+    unsigned char label[MAXSTRLEN]; // label from the file
+    unsigned char topic[MAXSTRLEN]; // mqttopic
+    unsigned char oncmd[MAXSTRLEN]; // on command
+    unsigned char offcmd[MAXSTRLEN]; // off command
+    unsigned char broker_ip[MAXSTRLEN]; // ip address of the broker as a string
+    uint64_t host_port; // port of the broker as a string
 }mqtthost_t;
 
 /*

@@ -64,11 +64,56 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
         }
     }
 
-    // iterate through all of the devices and add them to the mqtthost_t array
+    uint32_t host_count = 0;
+    // iterate through all of the devices and add them to the mqtthost_toml_table_lent array
     // see line ~30 of https://github.com/arp242/toml-c/blob/main/example/table.c
     toml_table_t *devices = toml_table_table(mqtthostdata,"devices");
     if(devices)
     {
+        // iterate through the table keys and build up a list of members
+        uint32_t table_length = toml_table_len(devices);
+        for(uint32_t i=0;i<table_length;i++)
+        {
+            // pull out a key
+            uint32_t key_length;
+            const char *device_key = toml_table_key(devices,i,&key_length); 
+            // pull out the commands for the mqtt thing
+            //printf("%s\n",device_key);
+            toml_table_t *adevice = toml_table_table(devices,device_key); // table for an indivdual device
+            // pull down the elements for a devie
+            if(adevice)
+            {
+                uint32_t device_table_length = toml_table_len(adevice);
+                uint32_t member_key_length;
+                for(uint32_t j=0;j<device_table_length;j++)
+                {
+                    const char *device_member_key = toml_table_key(adevice,j,&member_key_length);
+                    // copy the mqtt broker and host port to the element 
+                    //hosts[host_count].broker_ip = host_ip;
+                    strcpy(hosts[host_count].broker_ip,host_ip);
+                    hosts[host_count].host_port = host_port;
+                    // figure out which elements we're writting to 
+                    
+                    if(strcmp(device_member_key,"topic") == 0)
+                    {
+                    
+                    }
+                    else if(strcmp(device_member_key,"oncmd") == 0)
+                    {
+
+                    }
+                    else if(strcmp(device_member_key,"offcmd") == 0)
+                    {
+
+                    }
+                    else if(strcmp(device_member_key,"type") == 0)
+                    {
+
+                    }
+                }
+            } 
+            host_count ++; // incriment the host count 
+        }
 
     }
     else
