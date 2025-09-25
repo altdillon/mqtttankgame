@@ -1,6 +1,6 @@
 #ifndef BADGUY_H
 #define BADGUY_H
-#define MAXBADGUYTANKS 20 // max number of bad guy tanks
+#define MAXBADGUYTANKS 80 // max number of bad guy tanks
 #include <stdint.h>
 #include "raylib.h"
 #include "mqtthosts.h"
