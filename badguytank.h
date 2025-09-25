@@ -24,6 +24,7 @@ typedef struct
 {
     Vector2 tankpos; // 2D position of the badguy tank
     enum tankstate currentstate;
+    uint8_t agression; // how agressive the tank is
 } badguytank_h;
 
 /*
