@@ -104,6 +104,9 @@ int main(int argc,char **argv)
     // basicly instance variables
     player_t player;
 
+    // figure out where we're going to put the player
+    Vector2 playerpos = find_startsplot(&gamemap);
+
     Vector2 playerpos = {(float)windowX/2,(float)windowY/2};
     float playerAngle = PI/2; 
     float da = 10.0f;

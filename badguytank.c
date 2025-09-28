@@ -10,6 +10,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_h *badguys,uint32_t ntanks)
         // roll the dice between 1 and 20 to figure out how agressive this tank is
         uint8_t roll = rand() % (20 - 1 + 1) + 1;
         badguys[i].agression = roll;
+        badguys[i].host = &mqtthosts[i];
     }
 
     return 0;

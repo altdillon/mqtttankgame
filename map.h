@@ -1,6 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include <stdint.h>
+#include "raylib.h"
 #define MAP_HEIGHT 400
 #define MAP_WIDTH 400
 
@@ -33,5 +34,13 @@ int random_walk(map_t *map,int width,int height,double walk_percent,int seed);
 */
 
 int draw_map(map_t *gmap,int startX,int startY,int width,int height);
+
+/*
+    function to find a black spot in the map
+    gamemap: takes in an object for the gamemap
+    returns a 2D vector that says where we can place stuff
+    */
+
+Vector2 find_startsplot(map_t *gamemap);
 
 #endif
