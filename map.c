@@ -101,11 +101,14 @@ int draw_map(map_t *gmap,int startX,int startY,int width,int height)
 
 Vector2 find_startsplot(map_t *gamemap)
 {
+    const uint32_t clearning_threshhold = 3;
     const uint32_t dstep = 10;
     uint32_t map_stepX = MAP_WIDTH / dstep;
     uint32_t map_stepY = MAP_HEIGHT / dstep;
-    Vector2 retplace; // location where we're going to put a value
+    Vector2 retplace = {0.0f,0.0f}; // location where we're going to put a value
     const uint32_t nplaces = 10; // places where we can potintally find a value
+    uint32_t clearning_count = 0;
+    Vector2 clearings[nplaces]; 
     // iterate through everyone and find a value
     for(uint32_t x=0;x<map_stepX;x+=dstep)
     {
@@ -114,7 +117,18 @@ Vector2 find_startsplot(map_t *gamemap)
             //uint32_t sumpx = gamemap->map[x][y].R + gamemap->map[x][y].G + gamemap->map[x][y].B;
             uint32_t sumpx = 0;
             // go through all the pixles in the dstep * dstep square and figure out how populated this space is
+            for(uint32_t i=x;i<(x+dstep);i++)
+            {
+                for(uint32_t j=y;j<(y+dstep);j++)
+                {
+                    sumpx = gamemap->map[i][j].R + gamemap->map[i][j].G + gamemap->map[i][j].B;
+                }
+            }
+            // figure out if it's a clearing that we can use
+            if(sumpx < clearning_threshhold)
+            {
 
+            }
         }
     }
 
