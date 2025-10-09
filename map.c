@@ -102,7 +102,7 @@ int draw_map(map_t *gmap,int startX,int startY,int width,int height)
 Vector2 find_startsplot(map_t *gamemap)
 {
     const uint32_t clearning_threshhold = 3;
-    const uint32_t dstep = 10;
+    const uint32_t dstep = 16; // how big of steps we're taking through the world to find a thresh hold
     uint32_t map_stepX = MAP_WIDTH / dstep;
     uint32_t map_stepY = MAP_HEIGHT / dstep;
     Vector2 retplace = {0.0f,0.0f}; // location where we're going to put a value
@@ -121,16 +121,27 @@ Vector2 find_startsplot(map_t *gamemap)
             {
                 for(uint32_t j=y;j<(y+dstep);j++)
                 {
-                    sumpx = gamemap->map[i][j].R + gamemap->map[i][j].G + gamemap->map[i][j].B;
+                    sumpx += gamemap->map[i][j].R + gamemap->map[i][j].G + gamemap->map[i][j].B;
                 }
             }
             // figure out if it's a clearing that we can use
             if(sumpx < clearning_threshhold)
             {
-
+                float vx = (float)(x + dstep/2);
+                float vy = (float)(y + dstep/2);
+                clearings[clearning_count] = (Vector2) {vx,vy};
+                clearning_count ++;
+                if(clearning_count > nplaces)
+                {
+                    break; // we're out of places to keep that clearing
+                }
             }
         }
     }
+
+    // use a random number to select one of the clearings
+    uint32_t iclear = (rand() % nplaces) + 1;
+    retplace = clearings[iclear];
 
     return retplace;
 }
