@@ -48,4 +48,10 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_h *badguys,uint32_t ntanks);
 
 void tank_nextate(badguytank_h *tank);
 
+/*
+    Make a random starting location for a bad guy tank
+    This is kind of a place holder until I think of a better way to do this, but I want to code the tanks instead of messing with how the map works
+*/
+int place_random_tanks(Vector2 *tankpos,uint32_t ntanks);
+
 #endif
