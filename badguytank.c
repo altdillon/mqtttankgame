@@ -67,7 +67,18 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
 }
 
 
-void tank_nextate(badguytank_t *tank)
+void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
 {
-
+    const float dx = 1.0f;
+    const float dy = 2.0f;
+    enum tankstate next_state;
+    switch(tank->currentstate)
+    {
+        case PATROL:
+            tank->tankpos.x += dx;
+            tank->tankpos.y += dy;
+            next_state = PATROL;
+        break;
+    }
+    tank->currentstate = next_state;
 }

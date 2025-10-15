@@ -13,13 +13,6 @@
 #include "badguytank.h"
 #include "gamestate.h"
 
-typedef struct 
-{
-    Vector2 spritePos;
-    float angle; // angle in radians
-    uint16_t bullets; // how many bullets the tank has
-    // TODO: add a type for ammo type
-} player_t;
 
 
 // update player
@@ -121,7 +114,7 @@ int main(int argc,char **argv)
 
     // basicly instance variables
     player_t player;
-
+    gamestate.player = &player;
     // figure out where we're going to put the player
     //Vector2 playerpos_test = find_startsplot(&gamemap);
 
@@ -239,7 +232,13 @@ int main(int argc,char **argv)
         {
             key_state = false;
         }
-        
+       
+        // update the states of the bad guy tanks
+        for(uint32_t i=0;i<gamestate.loaded_hosts;i++)
+        {
+            tank_nextate(&badguytanks[i],&gamestate);
+        }
+    
         // update the camera
         camera.target = (Vector2){player.spritePos.x,player.spritePos.y};
 

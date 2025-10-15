@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "raylib.h"
 #include "mqtthosts.h"
+#include "gamestate.h"
 
 /*
     enum for the operating state of the bad guy tank
@@ -49,7 +50,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks);
     tank: a pointer to a tank object
 */
 
-void tank_nextate(badguytank_t *tank);
+void tank_nextate(badguytank_t *tank,gamestate_t *gamestate);
 
 /*
     Make a random starting location for a bad guy tank
