@@ -31,7 +31,7 @@ int main(int argc,char **argv)
     random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.7,-1);
     // define an array to store all of our mqtt hosts
     mqtthost_t hosts[MAXHOSTS];
-    badguytank_h badguytanks[MAXHOSTS];
+    badguytank_t badguytanks[MAXHOSTS];
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h

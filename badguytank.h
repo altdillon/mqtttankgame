@@ -26,7 +26,7 @@ typedef struct
     enum tankstate currentstate;
     uint8_t agression; // how agressive the tank is
     mqtthost_t *host; // pointer to this tank's host
-} badguytank_h;
+} badguytank_t;
 
 /*
     header prototypes for the bad guy tank
@@ -39,19 +39,19 @@ typedef struct
     ntanks: number of tanks that we want to create
     return 0 if everything word out, -1 if it didn't
 */
-int init_tanks(mqtthost_t *mqtthosts,badguytank_h *badguys,uint32_t ntanks);
+int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks);
 
 /*
     compute the next state of a tank and update the memory
     tank: a pointer to a tank object
 */
 
-void tank_nextate(badguytank_h *tank);
+void tank_nextate(badguytank_t *tank);
 
 /*
     Make a random starting location for a bad guy tank
     This is kind of a place holder until I think of a better way to do this, but I want to code the tanks instead of messing with how the map works
 */
-int place_random_tanks(Vector2 *tankpos,uint32_t ntanks);
+int place_random_tanks(badguytank_t *tankpos,uint32_t ntanks);
 
 #endif
