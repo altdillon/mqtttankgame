@@ -32,6 +32,8 @@ int main(int argc,char **argv)
     // define an array to store all of our mqtt hosts
     mqtthost_t hosts[MAXHOSTS];
     badguytank_t badguytanks[MAXHOSTS];
+    // for now let's just randomly add badguy tanks around the screen
+    place_random_tanks(badguytanks,MAXHOSTS);
 
     bool key_state = false;
     // number of bullets and bullets on the screen, MAX bullets defined in bullets.h
