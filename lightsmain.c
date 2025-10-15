@@ -11,6 +11,7 @@
 #include "toml.h"
 #include "mqtthosts.h"
 #include "badguytank.h"
+#include "gamestate.h"
 
 typedef struct 
 {
@@ -20,11 +21,6 @@ typedef struct
     // TODO: add a type for ammo type
 } player_t;
 
-typedef struct 
-{
-    bool isHosts_loaded;
-    uint32_t loaded_hosts;
-} gamestate_t;
 
 // update player
 void update_player(player_t *player,map_t *worldmap);

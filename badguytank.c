@@ -65,3 +65,9 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
 
     return 0;
 }
+
+
+void tank_nextate(badguytank_t *tank)
+{
+
+}
