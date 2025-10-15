@@ -43,13 +43,23 @@ int place_random_tanks(badguytank_t *tankpos,uint32_t ntanks)
 
 int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
 {
+    // width and height of the tank
+    int frame_width = tank_sp->width;
+    int frame_height = tank_sp->height;
+    Vector2 origin = {(float)frame_width,(float)frame_height};
+    Rectangle srcRec = {0.0f,0.0f,(float)frame_width,(float)frame_height}; // src rectangle
+    Rectangle dstRec = {0.0f,0.0f,frame_width*2.0f,frame_height*2.0f}; // destonation where we're actually drawing this on the screen, will be defined in the for loop
     // interate through all the bad buy tanks and draw them to the screen
     for(uint32_t i=0;i<ntanks;i++) 
     {
-        if(tanks[i].isAlive)
+        if(tanks[i].isAlive) // is the tank alive?
         {
             Vector2 tpos = tanks[i].tankpos;
-
+            // update the destination rectangle
+            dstRec.x = tpos.x;
+            dstRec.y = tpos.y;
+            float tangle = tanks[i].tank_angle * (180/PI);
+            DrawTexturePro(*tank_sp,srcRec,dstRec,origin,tangle,WHITE);
         }
     }
 
