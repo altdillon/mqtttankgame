@@ -4,6 +4,7 @@
 #include <math.h>
 #include "raylib.h"
 #include "map.h"
+#include "mqtthosts.h"
 
 
 int random_walk(map_t *map,int width,int height,double walk_percent,int seed)
@@ -144,4 +145,18 @@ Vector2 find_startsplot(map_t *gamemap)
     retplace = clearings[iclear];
 
     return retplace;
+}
+
+void generate_vectors(Vector2 *vecs,uint32_t nvects)
+{
+    float vx = 0.0f;
+    float vy = 0.0f;
+    for(uint32_t i=0;i<nvects;i++)
+    {
+        int px = rand() % MAP_WIDTH;
+        int py = rand() % MAP_HEIGHT;
+        vx = (float)px;
+        vy = (float)py;
+        vecs[i] = (Vector2){vx,vy};
+    }
 }

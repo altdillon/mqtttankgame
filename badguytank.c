@@ -22,6 +22,8 @@ int place_random_tanks(Vector2 *tankpos,uint32_t ntanks)
     // new cordnets for the tanks
     float tx = 0.0f;
     float ty = 0.0f;
+    // get a number of tanks
+    Vector2 tvects[MAXBADGUYTANKS];
 
     for(uint32_t i=0;i<ntanks;i++)
     {

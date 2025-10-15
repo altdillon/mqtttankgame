@@ -62,16 +62,21 @@ int main(int argc,char **argv)
 
     if(argc > 1)
     {
-        for(int i=0;i<argc;i++)
+        for(int i=1;i<argc;i++)
         {
             if(strcmp(argv[i],"-fullscreen") == 0)
             {
                 fullscreen = true;
             }
-            else if(strcmp(argv[i],"-configfile") == 0)
+            if(strcmp(argv[i],"-configfile") == 0)
             {
                 cfgfile_index = i;
             }
+            // if(strcmp(argv[i],"-rt") == 0) // figure out if we want to generate the tanks randomly
+            // {
+            //     // make an array of random vectors
+            //     Vector2 vectors[MAXHOSTS];
+            // }
         }
     }
 

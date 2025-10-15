@@ -43,4 +43,9 @@ int draw_map(map_t *gmap,int startX,int startY,int width,int height);
 
 Vector2 find_startsplot(map_t *gamemap);
 
+/*
+    Generate n number of random vectors
+*/
+void generate_vectors(Vector2 *vecs,uint32_t nvects);
+
 #endif
