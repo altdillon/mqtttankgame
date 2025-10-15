@@ -14,6 +14,10 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
         badguys[i].agression = roll;
         badguys[i].host = &mqtthosts[i];
         badguys[i].isAlive = true; // when the game starts we assume the tank to be alive
+        // find a random angle to put the tank in 
+        float r = (float)rand() / RAND_MAX; // some value between 0 and 1
+        float angle = r * 2.0f * PI; // scale by 2PI, using raylib's pi constant
+        badguys[i].tank_angle = angle;
     }
 
     return 0;
@@ -45,6 +49,7 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
         if(tanks[i].isAlive)
         {
             Vector2 tpos = tanks[i].tankpos;
+
         }
     }
 
