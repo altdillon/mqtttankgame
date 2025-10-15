@@ -31,6 +31,11 @@ void update_player(player_t *player,map_t *worldmap);
 
 int main(int argc,char **argv)
 {
+    // game state and init values
+    gamestate_t gamestate;
+    gamestate.isHosts_loaded = false;
+    gamestate.loaded_hosts = 0;
+
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;
@@ -98,6 +103,10 @@ int main(int argc,char **argv)
         {
             printf("%s\n","failed to load toml config file");
         }
+        // copy that stuff over to the game state
+        gamestate.isHosts_loaded = true;
+        gamestate.loaded_hosts = nloadedhosts;
+        // and then init the tanks
         init_tanks(hosts,badguytanks,nloadedhosts);
     }
 
@@ -251,7 +260,10 @@ int main(int argc,char **argv)
                 // draw all the bullets
                 draw_bullets(bullets,bullet_count);
                 // draw the bad guy tanks
-                draw_badguy_tanks(&tank_sp,badguytanks,MAXHOSTS);
+                if(gamestate.isHosts_loaded)
+                {
+                    draw_badguy_tanks(&tank_sp,badguytanks,gamestate.loaded_hosts);
+                }
                 //DrawTexture(tank_sp,playerpos.x,playerpos.y, WHITE);
                 //DrawCircleV(playerpos,20,RED);
             EndMode2D();
