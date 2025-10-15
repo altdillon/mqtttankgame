@@ -2,6 +2,7 @@
 #define BADGUY_H
 #define MAXBADGUYTANKS 80 // max number of bad guy tanks
 #include <stdint.h>
+#include <stdbool.h>
 #include "raylib.h"
 #include "mqtthosts.h"
 
@@ -26,6 +27,7 @@ typedef struct
     enum tankstate currentstate;
     uint8_t agression; // how agressive the tank is
     mqtthost_t *host; // pointer to this tank's host
+    bool isAlive; // is this tank indeed alive
 } badguytank_t;
 
 /*
@@ -53,5 +55,10 @@ void tank_nextate(badguytank_t *tank);
     This is kind of a place holder until I think of a better way to do this, but I want to code the tanks instead of messing with how the map works
 */
 int place_random_tanks(badguytank_t *tankpos,uint32_t ntanks);
+
+/*
+    iterate through the array of bad guy tanks and draw them on screen
+*/
+int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks);
 
 #endif

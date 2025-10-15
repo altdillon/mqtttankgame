@@ -20,6 +20,12 @@ typedef struct
     // TODO: add a type for ammo type
 } player_t;
 
+typedef struct 
+{
+    bool isHosts_loaded;
+    uint32_t loaded_hosts;
+} gamestate_t;
+
 // update player
 void update_player(player_t *player,map_t *worldmap);
 
@@ -244,6 +250,8 @@ int main(int argc,char **argv)
                 DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
                 // draw all the bullets
                 draw_bullets(bullets,bullet_count);
+                // draw the bad guy tanks
+                draw_badguy_tanks(&tank_sp,badguytanks,MAXHOSTS);
                 //DrawTexture(tank_sp,playerpos.x,playerpos.y, WHITE);
                 //DrawCircleV(playerpos,20,RED);
             EndMode2D();

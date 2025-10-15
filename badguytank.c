@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+#include "raylib.h"
 #include "badguytank.h"
 #include "map.h"
 
@@ -12,6 +13,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
         uint8_t roll = rand() % (20 - 1 + 1) + 1;
         badguys[i].agression = roll;
         badguys[i].host = &mqtthosts[i];
+        badguys[i].isAlive = true; // when the game starts we assume the tank to be alive
     }
 
     return 0;
@@ -31,6 +33,13 @@ int place_random_tanks(badguytank_t *tankpos,uint32_t ntanks)
     {
         tankpos[i].tankpos = tvects[i]; // pretty much just copy it over
     }
+
+    return 0;
+}
+
+int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
+{
+    // 
 
     return 0;
 }
