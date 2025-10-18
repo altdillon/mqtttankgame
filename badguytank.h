@@ -38,6 +38,12 @@ typedef struct
 */
 
 /*
+    Helper function that returns a random angle between 0 and 2*pi
+*/
+
+float rnd_angle();
+
+/*
     init the tank, start out each tank on patrol
     mqtthosts: array of mqtt hosts from the toml file
     badguys: array of badguy tanks

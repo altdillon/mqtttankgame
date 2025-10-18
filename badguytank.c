@@ -4,6 +4,15 @@
 #include "badguytank.h"
 #include "map.h"
 
+float rnd_angle()
+{
+    srand((unsigned)time(NULL));
+    // generate some balue between 0 and 1 and then multiply it by 2*pi
+    float r = (float)rand() / RAND_MAX; 
+    float angle = r * 2.0f * PI;
+    return angle;
+}
+
 int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
 {
     for(uint32_t i=0;i<ntanks;i++)
