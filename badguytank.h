@@ -26,6 +26,7 @@ typedef struct
 {
     Vector2 tankpos; // 2D position of the badguy tank
     float tank_angle; // angle that the tank is faceing
+    float commaned_angle; // angle that we commanded the tank to face
     enum tankstate currentstate;
     uint8_t agression; // how agressive the tank is
     mqtthost_t *host; // pointer to this tank's host
