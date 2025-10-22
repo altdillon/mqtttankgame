@@ -128,3 +128,9 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
     toml_free(mqttbroker);
     return host_count;
 }
+
+int init_mqtt(pahostate_t *pstate)
+{
+
+    return 0;
+}

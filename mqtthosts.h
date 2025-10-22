@@ -3,6 +3,21 @@
 #define MAXHOSTS 20
 #define MAXSTRLEN 80
 #include <stdint.h>
+#include <MQTTClient.h> // paho mqtt
+
+/*
+    Struct for all the states assoated with a phao mqtt lib
+    "keep yo stinkn' objects out of my C code"
+*/
+
+typedef struct 
+{
+    MQTTClient client; // client object
+    MQTTClient_connectOptions conn_opts; // connection options
+    MQTTClient_message pubmsg; // publication messesage
+    MQTTClient_deliveryToken token;
+    int rc;
+} pahostate_t;
 
 /*
     struct for storing enteries of entires
@@ -27,5 +42,9 @@ typedef struct
 */
 
 int load_toml_config(char *pathname,mqtthost_t *hosts);
+
+int init_mqtt(pahostate_t *pstate);
+
+// TODO: write a publish function 
 
 #endif
