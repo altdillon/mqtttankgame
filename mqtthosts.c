@@ -129,8 +129,12 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
     return host_count;
 }
 
-int init_mqtt(pahostate_t *pstate)
+int init_mqtt(pahostate_t *pstate,unsigned char *brockeraddr)
 {
+    pstate->conn_opts = (MQTTClient_connectOptions)MQTTClient_connectOptions_initializer;
+    pstate->pubmsg = (MQTTClient_message)MQTTClient_message_initializer;
+    
+    
 
     return 0;
 }

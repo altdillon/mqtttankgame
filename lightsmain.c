@@ -25,6 +25,10 @@ int main(int argc,char **argv)
     gamestate.isHosts_loaded = false;
     gamestate.loaded_hosts = 0;
 
+    // states for the paho mqtt lib
+    pahostate_t mqttstate;
+    init_mqtt(&mqttstate,"tcp:placeholder");
+    
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;

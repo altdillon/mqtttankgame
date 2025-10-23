@@ -43,7 +43,12 @@ typedef struct
 
 int load_toml_config(char *pathname,mqtthost_t *hosts);
 
-int init_mqtt(pahostate_t *pstate);
+/*
+    init the mqtt object
+    https://eclipse.dev/paho/files/mqttdoc/MQTTClient/html/pubasync.html
+*/
+
+int init_mqtt(pahostate_t *pstate,unsigned char *brockeraddr);
 
 // TODO: write a publish function 
 
