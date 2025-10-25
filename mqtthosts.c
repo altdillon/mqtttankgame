@@ -143,8 +143,78 @@ int init_mqtt(pahostate_t *pstate,unsigned char *brockeraddr)
     return 0;
 }
 
-int async_publish(pahostate_t *state,brocker_t *brocker,unsigned char *topic,unsigned char *message)
-{
 
-    return 0;
+volatile MQTTClient_deliveryToken deliveredtoken;
+void delivered(void *context, MQTTClient_deliveryToken dt)
+{
+    printf("Message with token value %d delivery confirmed\n", dt);
+    deliveredtoken = dt;
+}
+int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
+{
+    int i;
+    char* payloadptr;
+    printf("Message arrived\n");
+    printf("     topic: %s\n", topicName);
+    printf("   message: ");
+    payloadptr = message->payload;
+    for(i=0; i<message->payloadlen; i++)
+    {
+        putchar(*payloadptr++);
+    }
+    putchar('\n');
+    MQTTClient_freeMessage(&message);
+    MQTTClient_free(topicName);
+    return 1;
+}
+void connlost(void *context, char *cause)
+{
+    printf("\nConnection lost\n");
+    printf("     cause: %s\n", cause);
+}
+
+int async_publish(brocker_t *brocker,unsigned char *topic,unsigned char *message)
+{
+    const unsigned char *client_id = "tankgame";
+    const uint32_t qos = 1;
+    // create some objects 
+    MQTTClient client;
+    MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
+    MQTTClient_message pubmsg = MQTTClient_message_initializer;
+    MQTTClient_deliveryToken token;
+    int rc;
+
+    // build up the url or whatever idaf
+    unsigned char brokerAddr[MAXSTRLEN];
+    sprintf(brokerAddr,"tcp://%s:%d",brocker->hostip,brocker->hostport);
+
+    
+    MQTTClient_create(&client,brokerAddr,client_id,MQTTCLIENT_PERSISTENCE_NONE,NULL);
+    conn_opts.keepAliveInterval = 20;
+    conn_opts.cleansession = 1;
+    
+    MQTTClient_setCallbacks(client,NULL,connlost,msgarrvd,delivered);
+
+    if((rc = MQTTClient_connect(client,&conn_opts)) != MQTTCLIENT_SUCCESS)
+    {
+        printf("Failed to connect, return code: %d\n",rc);
+        return -1; // return -1 as a fail
+    }
+
+    // set the string options for the payload
+    //strcpy(pubmsg.payload,message);
+    pubmsg.payload = message; 
+    pubmsg.payloadlen = strlen(message);
+    pubmsg.qos = qos;
+    pubmsg.retained = 0;
+    deliveredtoken = 0;
+    // actually send the message
+    MQTTClient_publishMessage(client,topic,&pubmsg,&token);
+    // NOTE: possibly print a message about waiting to send a message
+    while(deliveredtoken != token);
+    // after the message is sent, do a clean up
+    MQTTClient_disconnect(client,10000);
+    MQTTClient_destroy(&client);
+
+    return rc;
 }

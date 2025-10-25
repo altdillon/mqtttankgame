@@ -24,8 +24,8 @@ int main(int argc,char **argv)
     brocker_t brocker;
     gamestate_t gamestate;
     gamestate.isHosts_loaded = false;
-    gamestate.loaded_hosts = 0;
- 
+    gamestate.loaded_hosts = 0;    
+
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;
@@ -132,6 +132,11 @@ int main(int argc,char **argv)
     gamestate.player = &player;
     // figure out where we're going to put the player
     //Vector2 playerpos_test = find_startsplot(&gamemap);
+
+    // brefore we start stup up the loop, let's turn the green light behind my tv on
+    unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
+    unsigned char *greenlight_mqtt_command_on = "ON";
+    async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
 
     // this is a thing for testing
     Vector2 playerpos_test = find_startsplot(&gamemap);
@@ -282,6 +287,8 @@ int main(int argc,char **argv)
         // cycle through the bullets and update them
         update_bullets(bullets,bullet_count);
     }
+
+    // at the end of the loop we need to turn the light off
 
     return 0;
 }

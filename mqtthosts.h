@@ -60,6 +60,6 @@ int load_toml_config(char *pathname,mqtthost_t *hosts,brocker_t *brocker);
 int init_mqtt(pahostate_t *pstate,unsigned char *brockeraddr);
 
 // TODO: write a publish function 
-int async_publish(pahostate_t *state,brocker_t *brocker,unsigned char *topic,unsigned char *message);
+int async_publish(brocker_t *brocker,unsigned char *topic,unsigned char *message);
 
 #endif
