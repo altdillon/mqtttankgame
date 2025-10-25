@@ -9,6 +9,7 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
         return -1; // we've got too many bullets, but return and fail 
     }
     bullet_t new_bullet;
+    new_bullet.ticks = 0;
     new_bullet.bullet_pos = start_pos;
     new_bullet.bullet_ds = start_dir;
     new_bullet.id = next_id;
@@ -23,6 +24,7 @@ void update_bullets(bullet_t *bullarr,uint32_t nbullets)
     for(uint32_t i=0;i<nbullets;i++)
     {
         bullarr[i].bullet_pos = Vector2Add(bullarr[i].bullet_pos,bullarr[i].bullet_ds);
+        bullarr[i].ticks++;
     }
 }
 

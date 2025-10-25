@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include "raylib.h"
 #define MAX_BULLETS 100 // number of rounds that can be on the screen
+#define MAX_TICKS 120 // max number of frames that a bullet and stay alive for
 
 /*
     Struct for storing the state of a bullet
@@ -14,6 +15,7 @@ typedef struct
     Vector2 bullet_pos; // current position of the bullet
     Vector2 bullet_ds; // velocity of the bullet
     uint32_t id; // current ID of the bullet
+    uint32_t ticks; // how many frames has this bullet been alive
 } bullet_t;
 
 /*
