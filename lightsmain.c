@@ -21,14 +21,11 @@ void update_player(player_t *player,map_t *worldmap);
 int main(int argc,char **argv)
 {
     // game state and init values
+    brocker_t brocker;
     gamestate_t gamestate;
     gamestate.isHosts_loaded = false;
     gamestate.loaded_hosts = 0;
-
-    // states for the paho mqtt lib
-    pahostate_t mqttstate;
-    init_mqtt(&mqttstate,"tcp:placeholder");
-    
+ 
     // define the map that we well be playing on
     int gamepad = 0;
     map_t gamemap;
@@ -91,7 +88,7 @@ int main(int argc,char **argv)
         strcpy(cfgfileBuffer,argv[cfgfile_index+1]);
         printf("toml file: %s\n",cfgfileBuffer);
         // parse the toml file
-        int nloadedhosts = load_toml_config(cfgfileBuffer,hosts);
+        int nloadedhosts = load_toml_config(cfgfileBuffer,hosts,&brocker);
         if(nloadedhosts < 0)
         {
             printf("%s\n","failed to load toml config file");
@@ -101,6 +98,20 @@ int main(int argc,char **argv)
         gamestate.loaded_hosts = nloadedhosts;
         // and then init the tanks
         init_tanks(hosts,badguytanks,nloadedhosts);
+    }
+
+    // states for the paho mqtt lib
+    pahostate_t mqttstate;
+    if(gamestate.isHosts_loaded)
+    {
+        char mqtthost[80]; 
+        if(gamestate.loaded_hosts > 0)
+        {
+            //mqtthost_t *host = 
+            strcpy(mqtthost,badguytanks[0].host->broker_ip);
+        }
+        // if we loaded in a toml file then we have the tanks
+        init_mqtt(&mqttstate,mqtthost);
     }
 
     // after the argus are parsed run the options

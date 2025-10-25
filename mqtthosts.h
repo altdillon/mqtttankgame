@@ -6,6 +6,15 @@
 #include <MQTTClient.h> // paho mqtt
 
 /*
+    Struct for the mqtt host
+*/
+typedef struct
+{
+    unsigned char hostip[MAXSTRLEN];
+    uint64_t hostport;
+} brocker_t;
+
+/*
     Struct for all the states assoated with a phao mqtt lib
     "keep yo stinkn' objects out of my C code"
 */
@@ -41,7 +50,7 @@ typedef struct
     return the number of hots loaded, or -1 if error
 */
 
-int load_toml_config(char *pathname,mqtthost_t *hosts);
+int load_toml_config(char *pathname,mqtthost_t *hosts,brocker_t *brocker);
 
 /*
     init the mqtt object

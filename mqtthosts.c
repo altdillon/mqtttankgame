@@ -14,7 +14,7 @@ static void error(const char* msg, const char* msg1)
     exit(1);
 }
 
-int load_toml_config(char *pathname,mqtthost_t *hosts)
+int load_toml_config(char *pathname,mqtthost_t *hosts,brocker_t *brocker)
 {
     uint64_t host_port;
     char host_ip[80];
@@ -124,6 +124,10 @@ int load_toml_config(char *pathname,mqtthost_t *hosts)
     {
         return -1; // just fail if we don't have anything
     }
+
+
+    strcpy(brocker->hostip,host_ip);
+    brocker->hostport = host_port;
 
     toml_free(mqttbroker);
     return host_count;
