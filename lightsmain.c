@@ -134,10 +134,12 @@ int main(int argc,char **argv)
     //Vector2 playerpos_test = find_startsplot(&gamemap);
 
     // brefore we start stup up the loop, let's turn the green light behind my tv on
-    unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
-    unsigned char *greenlight_mqtt_command_on = "ON";
-    async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
-
+    if(gamestate.isHosts_loaded)
+    {
+        unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
+        unsigned char *greenlight_mqtt_command_on = "ON";
+        async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
+    }
     // this is a thing for testing
     Vector2 playerpos_test = find_startsplot(&gamemap);
 
@@ -289,9 +291,12 @@ int main(int argc,char **argv)
     }
 
     // at the end of the loop we need to turn the light off
-    unsigned char *greenlight_mqtt_off_topic = "cmnd/greenlight/Power";
-    unsigned char *greenlight_mqtt_command_off = "OFF";
-    async_publish(&brocker,greenlight_mqtt_off_topic,greenlight_mqtt_command_off);
+    if(gamestate.isHosts_loaded)
+    {
+        unsigned char *greenlight_mqtt_off_topic = "cmnd/greenlight/Power";
+        unsigned char *greenlight_mqtt_command_off = "OFF";
+        async_publish(&brocker,greenlight_mqtt_off_topic,greenlight_mqtt_command_off);
+    }
 
     return 0;
 }
