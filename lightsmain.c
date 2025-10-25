@@ -289,6 +289,9 @@ int main(int argc,char **argv)
     }
 
     // at the end of the loop we need to turn the light off
+    unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
+    unsigned char *greenlight_mqtt_command_on = "OFF";
+    async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
 
     return 0;
 }
