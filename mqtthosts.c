@@ -142,3 +142,9 @@ int init_mqtt(pahostate_t *pstate,unsigned char *brockeraddr)
 
     return 0;
 }
+
+int async_publish(pahostate_t *state,brocker_t *brocker,unsigned char *topic,unsigned char *message)
+{
+
+    return 0;
+}
