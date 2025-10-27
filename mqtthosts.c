@@ -223,7 +223,10 @@ int find_mqtthost(char *hostname,mqtthost_t *host,mqtthost_t *hostarray,uint32_t
 {
     if(strlen(hostname) < 1)
     {
-        
+        for(uint32_t i=0;i<nhosts;i++)
+        {
+
+        }
     }
 
     return -1; // if we get there, just say we failed
