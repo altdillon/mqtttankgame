@@ -218,3 +218,13 @@ int async_publish(brocker_t *brocker,unsigned char *topic,unsigned char *message
 
     return rc;
 }
+
+int find_mqtthost(char *hostname,mqtthost_t *host,mqtthost_t *hostarray,uint32_t nhosts)
+{
+    if(strlen(hostname) < 1)
+    {
+        
+    }
+
+    return -1; // if we get there, just say we failed
+}
