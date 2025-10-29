@@ -151,12 +151,13 @@ void generate_vectors(Vector2 *vecs,uint32_t nvects)
 {
     float vx = 0.0f;
     float vy = 0.0f;
+    float mult = 4.0f;
     for(uint32_t i=0;i<nvects;i++)
     {
         int px = rand() % MAP_WIDTH;
         int py = rand() % MAP_HEIGHT;
-        vx = (float)px;
-        vy = (float)py;
+        vx = (float)px * mult;
+        vy = (float)py * mult;
         vecs[i] = (Vector2){vx,vy};
     }
 }

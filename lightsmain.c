@@ -270,9 +270,9 @@ int main(int argc,char **argv)
 
                 draw_map(&gamemap,0,0,MAP_WIDTH,MAP_HEIGHT);
 
+                // draw the player tank
                 destRec.x = player.spritePos.x;
                 destRec.y = player.spritePos.y; 
-                //float player_angle_deg = playerAngle * (180/PI);
                 DrawTexturePro(tank_sp, sourceRec, destRec, origin,playerAngle, WHITE);
                 // draw all the bullets
                 draw_bullets(bullets,bullet_count);
