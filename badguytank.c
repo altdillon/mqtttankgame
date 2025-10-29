@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "raylib.h"
 #include "raymath.h"
 #include "badguytank.h"
@@ -92,29 +93,31 @@ void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
         case SEARCH:
             // find the distance between this tank and the player
             float vdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
-            if(vdist < 2.0f * tank->agression) 
+            if(vdist <= 10.0f) // are we with in some distance to the player?
             {
-                // turn to face the player
-                float newAngle = Vector2Angle(tank->tankpos,gamestate->player->spritePos);
-                tank->commaned_angle = newAngle;
+                next_state = FIRE; // SHOOT!
             }
             else
             {
-                float newAngle = rnd_angle();
-                tank->commaned_angle = newAngle;
+                tank->commaned_angle = rnd_angle();
+                next_state = TURN;
             }
-            next_state = TURN;
         break;
         case TURN:
-            if(tank->commaned_angle != tank->tank_angle)
+            float norm_angle = fmodf(tank->commaned_angle - tank->tank_angle + PI,2*PI) - PI; // compare the normalized angles 
+            if(fabs(norm_angle) > 0.01f)
             {
-                tank->tank_angle += 0.1;
+                //tank->tank_angle += 0.1;
+                tank->tank_angle += (norm_angle > 0 ? 0.01f : -0.01f); 
                 next_state = TURN;
             }
             else
             {
                 next_state = PATROL;
             }
+        break;
+        case FIRE:
+            next_state = SEARCH;
         break;
     }
     tank->currentstate = next_state;
