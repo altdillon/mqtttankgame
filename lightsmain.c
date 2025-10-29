@@ -139,10 +139,11 @@ int main(int argc,char **argv)
         mqtthost_t *greenlight_host; // init as null
         find_mqtthost("greenlight",&greenlight_host,hosts,gamestate.loaded_hosts);
 
-        printf("%s\n",greenlight_host->topic);
-        unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
-        unsigned char *greenlight_mqtt_command_on = "ON";
-        async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
+        // printf("%s\n",greenlight_host->topic);
+        // unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
+        // unsigned char *greenlight_mqtt_command_on = "ON";
+        // async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);
+        async_publish(&brocker,greenlight_host->topic,greenlight_host->oncmd);
     }
     // this is a thing for testing
     Vector2 playerpos_test = find_startsplot(&gamemap);
@@ -297,9 +298,13 @@ int main(int argc,char **argv)
     // at the end of the loop we need to turn the light off
     if(gamestate.isHosts_loaded)
     {
-        unsigned char *greenlight_mqtt_off_topic = "cmnd/greenlight/Power";
-        unsigned char *greenlight_mqtt_command_off = "OFF";
-        async_publish(&brocker,greenlight_mqtt_off_topic,greenlight_mqtt_command_off);
+        //unsigned char *greenlight_mqtt_off_topic = "cmnd/greenlight/Power";
+        //unsigned char *greenlight_mqtt_command_off = "OFF";
+        //async_publish(&brocker,greenlight_mqtt_off_topic,greenlight_mqtt_command_off);
+    
+        mqtthost_t *greenlight_host; // init as null
+        find_mqtthost("greenlight",&greenlight_host,hosts,gamestate.loaded_hosts);
+        async_publish(&brocker,greenlight_host->topic,greenlight_host->offcmd);
     }
 
     return 0;
