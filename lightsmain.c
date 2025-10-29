@@ -136,9 +136,10 @@ int main(int argc,char **argv)
     // brefore we start stup up the loop, let's turn the green light behind my tv on
     if(gamestate.isHosts_loaded)
     {
-        mqtthost_t *greenlight_host = {0}; // init as null
-        find_mqtthost("greenlight",greenlight_host,hosts,gamestate.loaded_hosts);
+        mqtthost_t *greenlight_host; // init as null
+        find_mqtthost("greenlight",&greenlight_host,hosts,gamestate.loaded_hosts);
 
+        printf("%s\n",greenlight_host->topic);
         unsigned char *greenlight_mqtt_topic = "cmnd/greenlight/Power";
         unsigned char *greenlight_mqtt_command_on = "ON";
         async_publish(&brocker,greenlight_mqtt_topic,greenlight_mqtt_command_on);

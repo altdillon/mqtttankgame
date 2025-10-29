@@ -219,13 +219,17 @@ int async_publish(brocker_t *brocker,unsigned char *topic,unsigned char *message
     return rc;
 }
 
-int find_mqtthost(char *hostname,mqtthost_t *host,mqtthost_t *hostarray,uint32_t nhosts)
+int find_mqtthost(char *hostname,mqtthost_t **host,mqtthost_t *hostarray,uint32_t nhosts)
 {
-    if(strlen(hostname) < 1)
+    if(strlen(hostname) > 1)
     {
         for(uint32_t i=0;i<nhosts;i++)
         {
-
+            if(strstr(hostarray[i].topic,hostname) != NULL)
+            {
+                *host = &hostarray[i]; // copy the pointer over
+                return 0;
+            }
         }
     }
 

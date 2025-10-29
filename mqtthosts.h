@@ -58,7 +58,7 @@ int load_toml_config(char *pathname,mqtthost_t *hosts,brocker_t *brocker);
     arguments: hostname: string host name, host: pointer to the host that we're trying to find, hostarray: pointer to the array of hosts, nhosts: number of loaded hosts
 */
 
-int find_mqtthost(char *hostname,mqtthost_t *host,mqtthost_t *hostarray,uint32_t nhosts);
+int find_mqtthost(char *hostname,mqtthost_t **host,mqtthost_t *hostarray,uint32_t nhosts);
 
 /*
     init the mqtt object
