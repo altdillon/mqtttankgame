@@ -19,7 +19,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
 {
     for(uint32_t i=0;i<ntanks;i++)
     {
-        badguys[i].currentstate = PATROL;
+        badguys[i].currentstate = SEARCH;
         // roll the dice between 1 and 20 to figure out how agressive this tank is
         uint8_t roll = rand() % (20 - 1 + 1) + 1;
         badguys[i].agression = roll;
@@ -85,39 +85,27 @@ void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
     enum tankstate next_state;
     switch(tank->currentstate)
     {
-        case PATROL:
-            tank->tankpos.x += dx;
-            tank->tankpos.y += dy;
-            next_state = SEARCH;
-        break;
         case SEARCH:
-            // find the distance between this tank and the player
-            float vdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
-            if(vdist <= 10.0f) // are we with in some distance to the player?
+            // compute the distance between the player and the bad guy tank
+            float pdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
+            if(pdist < 200.0f)
             {
-                next_state = FIRE; // SHOOT!
-            }
-            else
-            {
-                tank->commaned_angle = rnd_angle();
+                // compute the angle between the player tank and this bad guy tank
+                float pangle = Vector2Angle(tank->tankpos,gamestate->player->spritePos) * (180/PI);
+                printf("%f\n",pangle);
+                tank->commaned_angle = pangle; // go ahead and set the angle 
                 next_state = TURN;
             }
-        break;
+            else
+            {   
+                next_state = SEARCH;
+            }
+            break;
         case TURN:
-            float norm_angle = fmodf(tank->commaned_angle - tank->tank_angle + PI,2*PI) - PI; // compare the normalized angles 
-            if(fabs(norm_angle) > 0.01f)
-            {
-                //tank->tank_angle += 0.1;
-                tank->tank_angle += (norm_angle > 0 ? 0.01f : -0.01f); 
-                next_state = TURN;
-            }
-            else
-            {
-                next_state = PATROL;
-            }
-        break;
-        case FIRE:
-            next_state = SEARCH;
+            // for now just set the angle to the commanded angle
+            // TODO: make a cool animation
+            tank->tank_angle = tank->commaned_angle;
+            next_state = SEARCH; // for now just go back to search
         break;
     }
     tank->currentstate = next_state;
