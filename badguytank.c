@@ -122,8 +122,9 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 
         case MOVE:
         {
-            tank->tankpos.x -= tank_dx;
-            tank->tankpos.y -= tank_dy;
+            // tank->tankpos.x -= tank_dx;
+            // tank->tankpos.y -= tank_dy;
+            move_badguy_tank(tank,10.0f);
             next_state = PATROL;
 
             break;
