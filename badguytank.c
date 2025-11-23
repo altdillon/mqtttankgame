@@ -135,6 +135,17 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 }
 
 
+void move_badguy_tank(badguytank_t *tank,float dist)
+{
+    float angle = tank->tank_angle;
+    // compute the delta for x and y
+    float deltaX = cosf(angle) * dist;
+    float deltaY = sinf(angle) * dist;
+    // wrap it up as a raylib vector
+    Vector2 ds = {deltaX,deltaY};
+    tank->tankpos = Vector2Add(tank->tankpos,ds);
+}
+
 // void tank_nextstate(badguytank_t *tank,gamestate_t *gamestate)
 // {
 //     const float dx = 1.0f;

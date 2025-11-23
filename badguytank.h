@@ -70,4 +70,11 @@ int place_random_tanks(badguytank_t *tankpos,uint32_t ntanks);
 */
 int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks);
 
+/*
+    Helper function to move a bad guy tank
+
+*/
+
+void move_badguy_tank(badguytank_t *tank,float dist);
+
 #endif
