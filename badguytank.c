@@ -91,7 +91,7 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
             Vector2 dir = Vector2Normalize(distVect);
 
             // angle relative to +X axis
-            float pangle = Vector2Angle((Vector2){1, 0}, dir) - (PI/2);
+            float pangle = Vector2Angle((Vector2){1, 0}, dir) + (PI/2);
 
             tank->tank_angle = pangle;
             next_state = SEARCH;
