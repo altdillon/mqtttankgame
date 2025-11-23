@@ -19,7 +19,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
 {
     for(uint32_t i=0;i<ntanks;i++)
     {
-        badguys[i].currentstate = SEARCH;
+        badguys[i].currentstate = PATROL;
         // roll the dice between 1 and 20 to figure out how agressive this tank is
         uint8_t roll = rand() % (20 - 1 + 1) + 1;
         badguys[i].agression = roll;
@@ -79,33 +79,56 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
 
 void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 {
+    // const for dx and dy
+    float tank_dx = 1.0f;
+    float tank_dy = 1.0f;
+
     enum tankstate next_state = tank->currentstate;
 
     switch (tank->currentstate)
     {
-        case SEARCH:
+        case PATROL:
         {
             // compute distance (unused but legal now)
             float pdist = Vector2Distance(tank->tankpos, gamestate->player->spritePos);
-
             // vector from tank to player
             Vector2 distVect = Vector2Subtract(gamestate->player->spritePos, tank->tankpos);
-
             // compute angle of that vector
             float pangle = Vector2Angle((Vector2){1, 0}, distVect) + (PI/2);
-
             //tank->tank_angle = pangle;
+            if(pdist < 480.0f)
+            {
+                next_state = TURN;
+            }
+            else 
+            {
+                next_state = PATROL;
+            }
+
+            if(pdist < 400.0f)
+            {
+                next_state = MOVE;
+            }
             tank->commaned_angle = pangle; 
-            next_state = TURN;
             break;
         }
 
         case TURN:
         {
             tank->tank_angle = tank->commaned_angle;
-            next_state = SEARCH;
+            next_state = PATROL;
             break;
         }
+
+        case MOVE:
+        {
+            tank->tankpos.x -= tank_dx;
+            tank->tankpos.y -= tank_dy;
+            next_state = PATROL;
+
+            break;
+        }
+
     }
 
     tank->currentstate = next_state;
