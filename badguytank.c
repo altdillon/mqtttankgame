@@ -88,18 +88,8 @@ void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
         case SEARCH:
             // compute the distance between the player and the bad guy tank
             float pdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
-            if(pdist < 200.0f)
-            {
-                // compute the angle between the player tank and this bad guy tank
-                float pangle = Vector2Angle(tank->tankpos,gamestate->player->spritePos) * (180/PI);
-                printf("%f\n",pangle);
-                tank->commaned_angle = pangle; // go ahead and set the angle 
-                next_state = TURN;
-            }
-            else
-            {   
-                next_state = SEARCH;
-            }
+            // compute teh angle diffrence 
+            next_state = SEARCH; 
             break;
         case TURN:
             // for now just set the angle to the commanded angle
