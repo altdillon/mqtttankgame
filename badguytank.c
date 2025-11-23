@@ -122,9 +122,8 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 
         case MOVE:
         {
-            // tank->tankpos.x -= tank_dx;
-            // tank->tankpos.y -= tank_dy;
-            move_badguy_tank(tank,10.0f);
+            float movev = 10.0f;
+            move_badguy_tank(tank,movev);
             next_state = PATROL;
 
             break;
@@ -138,7 +137,7 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 
 void move_badguy_tank(badguytank_t *tank,float dist)
 {
-    float angle = tank->tank_angle;
+    float angle = tank->tank_angle + (PI/2) + PI;
     // compute the delta for x and y
     float deltaX = cosf(angle) * dist;
     float deltaY = sinf(angle) * dist;
