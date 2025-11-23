@@ -79,6 +79,10 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
 
 void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 {
+    // general things about the game state to compute before we start doing anything for the state
+    // compute distance
+    float pdist = Vector2Distance(tank->tankpos, gamestate->player->spritePos);
+
     // const for dx and dy
     float tank_dx = 1.0f;
     float tank_dy = 1.0f;
@@ -89,8 +93,6 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
     {
         case PATROL:
         {
-            // compute distance (unused but legal now)
-            float pdist = Vector2Distance(tank->tankpos, gamestate->player->spritePos);
             // vector from tank to player
             Vector2 distVect = Vector2Subtract(gamestate->player->spritePos, tank->tankpos);
             // compute angle of that vector
@@ -122,13 +124,27 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 
         case MOVE:
         {
-            float movev = 10.0f;
+            float movev = 8.0f;
             move_badguy_tank(tank,movev);
-            next_state = PATROL;
+            if(pdist > 100.0f)
+            {
+                next_state = PATROL;
+            }
+            else
+            {
+                next_state = FIRE;
+            }
+
 
             break;
         }
 
+        case FIRE:
+        {
+            // shoot at the planer some how
+            next_state = PATROL;
+            break;
+        }
     }
 
     tank->currentstate = next_state;
