@@ -16,7 +16,8 @@ enum tankstate
     SEARCH, // move the tank to face the player 
     FIRE, // shoot of a round, then move
     RETREAT, // if it, or we just feel like it retreat
-    TURN // pick a direction to move in
+    TURN, // pick a direction to move in
+    MOVE // move in a given direction
 };
 
 /*

@@ -93,11 +93,44 @@ void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
             // angle relative to +X axis
             float pangle = Vector2Angle((Vector2){1, 0}, dir) + (PI/2);
 
-            tank->tank_angle = pangle;
-            next_state = SEARCH;
+            //tank->tank_angle = pangle;
+            tank->commaned_angle = pangle; 
+            //next_state = SEARCH;
+            next_state = TURN; 
             break;
         }
-
+        void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
+        {
+            enum tankstate next_state = tank->currentstate;
+        
+            switch (tank->currentstate)
+            {
+                case SEARCH: {
+                    // vector from tank to player
+                    Vector2 distVect = Vector2Subtract(gamestate->player->spritePos,tank->tankpos);
+        
+                    // normalize for angle calculation
+                    Vector2 dir = Vector2Normalize(distVect);
+        
+                    // angle relative to +X axis
+                    float pangle = Vector2Angle((Vector2){1, 0}, dir) - (PI/2);
+        
+                    tank->tank_angle = pangle;
+                    //next_state = SEARCH;
+                    next_state = TURN;
+                    break;
+                }
+        
+                case TURN: {
+                    tank->tank_angle = tank->commaned_angle;
+                    next_state = SEARCH;
+                    break;
+                }
+            }
+        
+            tank->currentstate = next_state;
+        }
+        
         case TURN: {
             tank->tank_angle = tank->commaned_angle;
             next_state = SEARCH;
