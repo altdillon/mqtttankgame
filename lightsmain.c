@@ -258,7 +258,7 @@ int main(int argc,char **argv)
         // update the states of the bad guy tanks
         for(uint32_t i=0;i<gamestate.loaded_hosts;i++)
         {
-            tank_nextate(&badguytanks[i],&gamestate);
+            tank_nextstate(&badguytanks[i],&gamestate);
         }
     
         // update the camera

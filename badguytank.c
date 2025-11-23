@@ -77,26 +77,59 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks)
     return 0;
 }
 
-
-void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
+void tank_nextstate(badguytank_t *tank, gamestate_t *gamestate)
 {
-    const float dx = 1.0f;
-    const float dy = 2.0f;
-    enum tankstate next_state;
-    switch(tank->currentstate)
+    enum tankstate next_state = tank->currentstate;
+
+    switch (tank->currentstate)
     {
-        case SEARCH:
-            // compute the distance between the player and the bad guy tank
-            float pdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
-            // compute teh angle diffrence 
-            next_state = SEARCH; 
+        case SEARCH: {
+            // vector from tank to player
+            Vector2 distVect = Vector2Subtract(gamestate->player->spritePos,tank->tankpos);
+
+            // normalize for angle calculation
+            Vector2 dir = Vector2Normalize(distVect);
+
+            // angle relative to +X axis
+            float pangle = Vector2Angle((Vector2){1, 0}, dir) - (PI/2);
+
+            tank->tank_angle = pangle;
+            next_state = SEARCH;
             break;
-        case TURN:
-            // for now just set the angle to the commanded angle
-            // TODO: make a cool animation
+        }
+
+        case TURN: {
             tank->tank_angle = tank->commaned_angle;
-            next_state = SEARCH; // for now just go back to search
-        break;
+            next_state = SEARCH;
+            break;
+        }
     }
+
     tank->currentstate = next_state;
 }
+
+// void tank_nextate(badguytank_t *tank,gamestate_t *gamestate)
+// {
+//     const float dx = 1.0f;
+//     const float dy = 2.0f;
+//     enum tankstate next_state;
+//     switch(tank->currentstate)
+//     {
+//         case SEARCH:
+//             // compute the distance between the player and the bad guy tank
+//             float pdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
+//             // compute teh angle diffrence
+//             Vector2 distVect = Vector2Subtract(tank->tankpos,gamestate->player->spritePos);
+//             float pangle = Vector2Angle(tank->tankpos,distVect) - (PI/2);
+//             tank->tank_angle = pangle;
+//             next_state = SEARCH; 
+//             break;
+//         case TURN:
+//             // for now just set the angle to the commanded angle
+//             // TODO: make a cool animation
+//             tank->tank_angle = tank->commaned_angle;
+//             next_state = SEARCH; // for now just go back to search
+//         break;
+//     }
+//     tank->currentstate = next_state;
+// }
