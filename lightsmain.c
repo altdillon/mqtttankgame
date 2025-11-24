@@ -27,7 +27,7 @@ int main(int argc,char **argv)
     gamestate.loaded_hosts = 0;    
 
     // define the map that we well be playing on
-    int gamepad = 0;
+    int gamepad = 1;
     map_t gamemap;
     random_walk(&gamemap,MAP_WIDTH,MAP_HEIGHT,0.7,-1);
     // define an array to store all of our mqtt hosts
@@ -197,12 +197,12 @@ int main(int argc,char **argv)
                 player.spritePos.y += dy;
             }
         }
-        if(IsKeyDown(KEY_S)) 
+        if(IsKeyDown(KEY_S) || IsGamepadButtonDown(gamepad,GAMEPAD_BUTTON_LEFT_FACE_DOWN)) 
         {
             player.spritePos.x -= dx;
             player.spritePos.y -= dy;
         }
-        if(IsKeyDown(KEY_A)) 
+        if(IsKeyDown(KEY_A) || IsGamepadButtonDown(gamepad,GAMEPAD_BUTTON_LEFT_FACE_LEFT)) 
         {
 
             //printf("angle: %f\n",(playerAngle));
@@ -218,7 +218,7 @@ int main(int argc,char **argv)
             dx = cosf(p_angle_rad)*ds;
             dy = sinf(p_angle_rad)*ds;
         }
-        if(IsKeyDown(KEY_D)) 
+        if(IsKeyDown(KEY_D) || IsGamepadButtonDown(gamepad,GAMEPAD_BUTTON_LEFT_FACE_RIGHT)) 
         {
             //printf("angle: %f\n",(playerAngle));
             player.angle = player.angle + da; 
@@ -233,7 +233,7 @@ int main(int argc,char **argv)
             dx = cosf(p_angle_rad)*ds;
             dy = sinf(p_angle_rad)*ds;
         }
-        if(IsKeyDown(KEY_SPACE))
+        if(IsKeyDown(KEY_SPACE) || IsGamepadButtonDown(gamepad,GAMEPAD_BUTTON_RIGHT_FACE_RIGHT))
         {
             if(key_state == false)
             {
