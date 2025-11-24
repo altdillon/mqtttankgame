@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 #include "raylib.h"
 #include "raymath.h"
 #include "badguytank.h"
 #include "map.h"
+#include "mqtthosts.h"
 
 float rnd_angle()
 {
@@ -166,6 +168,7 @@ void move_badguy_tank(badguytank_t *tank,float dist)
 
 void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,uint32_t nbadguys)
 {
+    mqtthost_t *tankhost; // put some stuff on the stack for the mqtthost
     const float hitrad = 20.0f;
     // loop through all the bullets and bad guy tanks and figure out if they're within hitrad units of each other
     for(uint32_t i=0;i<nbullet;i++)
@@ -185,6 +188,12 @@ void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,
                 if(tankarr[j].hitpoints < 0) // if this is less than zero then then the bad guy tank is dead
                 {
                     tankarr[j].isAlive = false;
+                    // just send to command to turn off the light
+                    //brocker_t brocker = {tankarr[j].host->broker_ip,tankarr[j].host->host_port};
+                    brocker_t brocker;
+                    strcpy(brocker.hostip,tankarr[j].host->broker_ip);
+                    brocker.hostport = tankarr[j].host->host_port;
+                    async_publish(&brocker,tankarr[j].host->topic,tankarr[j].host->offcmd);
                 }
             }
         }
