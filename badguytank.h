@@ -7,6 +7,7 @@
 #include "raylib.h"
 #include "mqtthosts.h"
 #include "gamestate.h"
+#include "bullets.h"
 
 /*
     enum for the operating state of the bad guy tank

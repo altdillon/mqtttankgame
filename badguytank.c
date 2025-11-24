@@ -5,7 +5,6 @@
 #include "raymath.h"
 #include "badguytank.h"
 #include "map.h"
-#include "bullets.h"
 
 float rnd_angle()
 {
@@ -181,7 +180,7 @@ void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,
             float dist = Vector2Length(vdist);
             if(dist < hitrad)
             {
-                
+
             }
         }
     }

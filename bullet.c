@@ -15,6 +15,7 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
     new_bullet.id = next_id;
     new_bullet.org_pos = start_pos;
     new_bullet.bullet_ds = Vector2Scale(start_dir,speed); // scale the speed of the bullet
+    new_bullet.damage = 20; // initional amount of hit points or damage a bullet can do
     bulletarr[next_id-1] = new_bullet;
     return 0;
 }
