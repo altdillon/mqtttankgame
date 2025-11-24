@@ -31,7 +31,7 @@ typedef struct
     float commaned_angle; // angle that we commanded the tank to face
     enum tankstate currentstate;
     uint8_t agression; // how agressive the tank is
-    uint32_t hitpoints; // how many hits can the bullet take
+    int32_t hitpoints; // how many hits can the bullet take
     mqtthost_t *host; // pointer to this tank's host
     bool isAlive; // is this tank indeed alive
 } badguytank_t;

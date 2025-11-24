@@ -166,7 +166,7 @@ void move_badguy_tank(badguytank_t *tank,float dist)
 
 void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,uint32_t nbadguys)
 {
-    const float hitrad = 3.0f;
+    const float hitrad = 20.0f;
     // loop through all the bullets and bad guy tanks and figure out if they're within hitrad units of each other
     for(uint32_t i=0;i<nbullet;i++)
     {
@@ -180,7 +180,12 @@ void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,
             float dist = Vector2Length(vdist);
             if(dist < hitrad)
             {
-
+                //printf("%s\n","HIT!!!");
+                tankarr[j].hitpoints -= bullarr[i].damage; // subtract the damage 
+                if(tankarr[j].hitpoints < 0) // if this is less than zero then then the bad guy tank is dead
+                {
+                    tankarr[j].isAlive = false;
+                }
             }
         }
     }
