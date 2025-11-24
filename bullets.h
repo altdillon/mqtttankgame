@@ -15,7 +15,7 @@ typedef struct
     Vector2 bullet_pos; // current position of the bullet
     Vector2 bullet_ds; // velocity of the bullet
     uint32_t id; // current ID of the bullet
-    uint32_t ticks; // how many frames has this bullet been alive
+    uint32_t ticks; // how many frames has this bullet been alive 
 } bullet_t;
 
 /*
@@ -40,5 +40,11 @@ void update_bullets(bullet_t *bullarr,uint32_t nbullets);
     Draw bullets
 */
 void draw_bullets(bullet_t *bullarr,uint32_t nbullets);
+
+/*
+    Helper function to remove bullets if they've been flying to long.
+    Take in an array of bullets and the number of bullets.  Return the new number of bullets
+*/
+uint32_t enforce_bullet_range(bullet_t *bullarr,uint32_t nbullets);
 
 #endif

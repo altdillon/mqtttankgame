@@ -260,6 +260,8 @@ int main(int argc,char **argv)
         {
             tank_nextstate(&badguytanks[i],&gamestate);
         }
+        // figure out if we need to delete any bullets
+        bullet_count = enforce_bullet_range(bullets,bullet_count);
     
         // update the camera
         camera.target = (Vector2){player.spritePos.x,player.spritePos.y};

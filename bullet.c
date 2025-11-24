@@ -19,8 +19,29 @@ int launch_bullet(uint32_t nbullets,bullet_t *bulletarr,Vector2 start_pos,Vector
     return 0;
 }
 
+uint32_t enforce_bullet_range(bullet_t *bullarr,uint32_t nbullets)
+{
+    uint32_t updated_nbullets = nbullets;
+    for(uint32_t i=0;i<updated_nbullets;i++)
+    {
+        if(bullarr[i].ticks > MAX_TICKS)
+        {
+            // null out that element and shift the array down
+            for(uint32_t j=i;j<updated_nbullets;j++)
+            {
+                bullarr[j] = bullarr[j+1];
+            }
+            updated_nbullets--;
+        }
+    }
+
+    return updated_nbullets;
+}
+
 void update_bullets(bullet_t *bullarr,uint32_t nbullets)
 {
+    
+    // update all the bullets that havn't been removed
     for(uint32_t i=0;i<nbullets;i++)
     {
         bullarr[i].bullet_pos = Vector2Add(bullarr[i].bullet_pos,bullarr[i].bullet_ds);
