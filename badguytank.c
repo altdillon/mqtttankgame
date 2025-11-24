@@ -5,6 +5,7 @@
 #include "raymath.h"
 #include "badguytank.h"
 #include "map.h"
+#include "bullets.h"
 
 float rnd_angle()
 {
@@ -29,6 +30,7 @@ int init_tanks(mqtthost_t *mqtthosts,badguytank_t *badguys,uint32_t ntanks)
         float r = (float)rand() / RAND_MAX; // some value between 0 and 1
         float angle = r * 2.0f * PI; // scale by 2PI, using raylib's pi constant
         badguys[i].tank_angle = angle;
+        badguys[i].hitpoints = MAXTANKHEALTH;
     }
 
     return 0;
@@ -162,29 +164,25 @@ void move_badguy_tank(badguytank_t *tank,float dist)
     tank->tankpos = Vector2Add(tank->tankpos,ds);
 }
 
-// void tank_nextstate(badguytank_t *tank,gamestate_t *gamestate)
-// {
-//     const float dx = 1.0f;
-//     const float dy = 2.0f;
-//     enum tankstate next_state;
-//     switch(tank->currentstate)
-//     {
-//         case SEARCH:
-            
-//             // compute the distance between the player and the bad guy tank
-//             float pdist = Vector2Distance(tank->tankpos,gamestate->player->spritePos);
-//             // compute teh angle diffrence
-//             Vector2 distVect = Vector2Subtract(tank->tankpos,gamestate->player->spritePos);
-//             float pangle = Vector2Angle(tank->tankpos,distVect) - (PI/2);
-//             tank->tank_angle = pangle;
-//             next_state = SEARCH; 
-//         break;
-//         case TURN:
-//             // for now just set the angle to the commanded angle
-//             // TODO: make a cool animation
-//             tank->tank_angle = tank->commaned_angle;
-//             next_state = SEARCH; // for now just go back to search
-//         break;
-//     }
-//     tank->currentstate = next_state;
-// }
+
+void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,uint32_t nbadguys)
+{
+    const float hitrad = 3.0f;
+    // loop through all the bullets and bad guy tanks and figure out if they're within hitrad units of each other
+    for(uint32_t i=0;i<nbullet;i++)
+    {
+        for(uint32_t j=0;j<nbadguys;j++)
+        {
+            // for the sake of readablity pull out the structs for the bullet and the bad guy tank
+            badguytank_t badguy = tankarr[j];
+            bullet_t thebullet = bullarr[i];
+            // subtract the position vectors from eachother
+            Vector2 vdist = Vector2Subtract(badguy.tankpos,thebullet.bullet_pos);
+            float dist = Vector2Length(vdist);
+            if(dist < hitrad)
+            {
+                
+            }
+        }
+    }
+}

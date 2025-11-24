@@ -262,6 +262,8 @@ int main(int argc,char **argv)
         }
         // figure out if we need to delete any bullets
         bullet_count = enforce_bullet_range(bullets,bullet_count);
+        // figure out if any bullets hit a bad guy tank
+        handle_bullet_hit(bullets,bullet_count,badguytanks,gamestate.loaded_hosts);
     
         // update the camera
         camera.target = (Vector2){player.spritePos.x,player.spritePos.y};

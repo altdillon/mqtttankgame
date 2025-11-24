@@ -1,6 +1,7 @@
 #ifndef BADGUY_H
 #define BADGUY_H
 #define MAXBADGUYTANKS 80 // max number of bad guy tanks
+#define MAXTANKHEALTH 100
 #include <stdint.h>
 #include <stdbool.h>
 #include "raylib.h"
@@ -29,6 +30,7 @@ typedef struct
     float commaned_angle; // angle that we commanded the tank to face
     enum tankstate currentstate;
     uint8_t agression; // how agressive the tank is
+    uint32_t hitpoints; // how many hits can the bullet take
     mqtthost_t *host; // pointer to this tank's host
     bool isAlive; // is this tank indeed alive
 } badguytank_t;
@@ -76,5 +78,10 @@ int draw_badguy_tanks(Texture2D *tank_sp, badguytank_t *tanks,uint32_t ntanks);
 */
 
 void move_badguy_tank(badguytank_t *tank,float dist);
+
+/*
+    function to register hits of badguy tanks
+*/
+void handle_bullet_hit(bullet_t *bullarr,uint32_t nbullet,badguytank_t *tankarr,uint32_t nbadguys);
 
 #endif
